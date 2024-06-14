@@ -27,5 +27,7 @@ export default {
     BLUE_200: "#065E7C",
 
     GREEN_100: "#04D361",
+
+    GRADIENT_200: "linear-gradient(180deg, #091E26 0%, #00131C 100%)",
   },
 };

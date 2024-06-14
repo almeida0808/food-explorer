@@ -13,8 +13,11 @@ font-size: 16px;
     font-size: 14px;
 
 }
+@media (max-width:375px) {
+    font-size: 12px;
 
- }
+}
+
  body{
 background-color: ${({ theme }) => theme.COLORS.DARK_400};
 
@@ -33,5 +36,5 @@ transition: filter 0.3s;
 
   }
 }
- }
+ }}
  `;
