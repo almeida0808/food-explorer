@@ -4,7 +4,7 @@ import { CardFood } from "../../components/Card-food";
 import frutasBanner from "../../assets/frutas-banner.png";
 import { CarrosselFood } from "../../components/Carrosel";
 import { Footer } from "../../components/Footer";
-export function Home({ isAdmin = true, ...rest }) {
+export function FoodDetails({ isAdmin = true, ...rest }) {
   return (
     <Container>
       <Header isAdmin={isAdmin}/>

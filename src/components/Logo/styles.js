@@ -1,16 +1,17 @@
 import styled from "styled-components";
-
 export const Container = styled.div`
   display: flex;
   align-items: center;
-
   gap: 10px;
-  > img {
-    width: 2.7rem;
+  > svg {
+    font-size: 2rem;
+    color: ${({ theme }) => theme.COLORS.BLUE_200};
   }
   div {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
 
     h1 {
       font-family: Roboto;
@@ -22,7 +23,6 @@ export const Container = styled.div`
     }
 
     small {
-      display: none;
       color: ${({ theme }) => theme.COLORS.BLUE_200};
     }
   }

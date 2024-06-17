@@ -1,13 +1,15 @@
 import { Container } from "./styles";
 import simbolo from "../../assets/logo.svg";
+import { Hexagon } from "@phosphor-icons/react";
 
-export function Logo() {
+export function Logo({isAdmin=false}) {
   return (
     <Container className="logo">
-      <img src={simbolo} alt="" />
-      <div>
+<Hexagon  weight="fill" />
+
+<div>
         <h1>food explorer</h1>
-        <small>admin</small>
+        {isAdmin && <small>admin</small>}
       </div>
     </Container>
   );
