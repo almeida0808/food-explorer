@@ -3,7 +3,7 @@ import { Container } from "./styles";
 export function Input({title, ...rest}) {
   return (
     <Container >
-      <p>{title}</p>
+      <label>{title}</label>
       <input {...rest}/>
     </Container>
   );

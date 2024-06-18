@@ -1,11 +1,14 @@
 import styled from "styled-components";
 
 export const Container = styled.footer`
+  grid-area: footer;
   display: flex;
   background-color: ${({ theme }) => theme.COLORS.DARK_600};
   padding: 1.2rem 0;
   justify-content: space-evenly;
   align-items: center;
+  height: max-content;
+  margin-top: 2rem;
   .logo {
     gap: 01px;
     h1,

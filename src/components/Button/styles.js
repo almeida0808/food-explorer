@@ -8,6 +8,7 @@ export const Container = styled.button`
   justify-content: center;
   align-items: center;
   gap: 8px;
+  font-family: Poppins;
 
   padding: 0.75rem;
   height: 3rem;

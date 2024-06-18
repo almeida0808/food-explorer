@@ -1,11 +1,13 @@
 import styled from "styled-components";
 
 export const Container = styled.header`
+  grid-area: header;
   background-color: ${({ theme }) => theme.COLORS.DARK_600};
   border: none;
   padding: 4rem 1.4rem 1.4rem;
   display: flex;
   width: 100%;
+  height: max-content;
   justify-content: space-between;
   align-items: center;
 

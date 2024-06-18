@@ -4,56 +4,101 @@ export const Container = styled.div`
   height: 100vh;
   width: 100%;
   background-color: ${({ theme }) => theme.COLORS.DARK_400};
+  display: grid;
+  grid-template-areas:
+    "header"
+    "main"
+    "footer";
+  grid-template-rows: max-content auto max-content;
 `;
 
 export const Main = styled.main`
-  max-width: 90%;
+  background-color: ${({ theme }) => theme.COLORS.DARK_400};
+
+  grid-area: main;
   margin: 0 auto;
-  height: max-content;
+  display: flex;
+  flex-direction: column;
+  max-width: 80%;
+  align-items: center;
+  font-family: Poppins;
+  color: ${({ theme }) => theme.COLORS.LIGHT_100};
 
-  > .banner {
-    margin-top: 2.6rem;
-    position: relative;
-    > img {
-      width: 12rem;
-      height: 9rem;
-      position: absolute;
-      bottom: 0px;
-      left: -1.6rem;
-      z-index: 10;
-    }
-    .backround-banner {
-      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-      background: ${({ theme }) => theme.COLORS.GRADIENT_200};
-      height: 7rem;
+  > button:first-child {
+    background: none;
+    border: none;
+    color: ${({ theme }) => theme.COLORS.LIGHT_100};
+
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+
+    margin: 2.2rem 15rem 1rem 0;
+
+    font-size: 1.5rem;
+    font-weight: 400;
+  }
+  > img {
+    width: 16rem;
+  }
+
+  > h1 {
+    font-weight: 400;
+    font-size: 1.8rem;
+    padding-top: 1.5rem;
+  }
+
+  p {
+    text-align: center;
+    color: ${({ theme }) => theme.COLORS.LIGHT_300};
+    font-weight: 400;
+    padding-top: 0.5rem;
+    padding-bottom: 1rem;
+  }
+
+  > .ingredientes {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    padding: 1.5rem 0 4rem;
+  }
+
+  .addFood {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    .quantidade {
       display: flex;
-      margin: 0 0 4rem 15px;
+      align-items: center;
+      font-size: 1.5rem;
+      font-weight: 500;
+      gap: 8px;
 
-      flex-direction: column;
-      gap: 3px;
+      button {
+        background: none;
+        border: none;
+        color: ${({ theme }) => theme.COLORS.LIGHT_100};
+        font-size: 1.5rem;
+      }
+    }
+    .buttonRed {
+      margin: 0;
+      font-size: 0.8rem;
+      font-weight: 300;
+      padding: 9px 40px;
 
-      color: ${({ theme }) => theme.COLORS.LIGHT_300};
-      font-family: Poppins;
-
-      > div {
-        position: absolute;
-        top: 1.5rem;
-        left: 11rem;
-        h2 {
-          font-weight: 500;
-          font-size: 1.09rem;
-          width: max-content;
-        }
-
-        p {
-          font-weight: 300;
-          font-size: 0.7rem;
-          width: max-content;
+      span {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        svg {
+          font-size: 1.8rem;
         }
       }
     }
   }
 
-  > .Carrosel {
+  .eYyrhx {
   }
 `;

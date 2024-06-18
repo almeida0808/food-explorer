@@ -3,7 +3,7 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
-  > svg {
+  .exagon {
     font-size: 2rem;
     color: ${({ theme }) => theme.COLORS.BLUE_200};
   }

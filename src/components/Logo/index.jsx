@@ -5,7 +5,7 @@ import { Hexagon } from "@phosphor-icons/react";
 export function Logo({isAdmin=false}) {
   return (
     <Container className="logo">
-<Hexagon  weight="fill" />
+<Hexagon className="exagon" weight="fill" />
 
 <div>
         <h1>food explorer</h1>
