@@ -9,12 +9,13 @@ import { SignUp } from "./pages/SignUp";
 import { Home } from "./pages/Home";
 import { FoodDetails } from "./pages/Food-details";
 import { EditPrato } from "./pages/EditPrato";
+import { CreatePrato } from "./pages/CreatePrato";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ThemeProvider theme={temas}>
       <GlobalStyle />
-      <EditPrato/>
+      <CreatePrato isAdmin={false}/>
     </ThemeProvider>
   </React.StrictMode>
 );

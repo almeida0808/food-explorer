@@ -4,7 +4,7 @@ export function Input({title, ...rest}) {
   return (
     <Container >
       <label>{title}</label>
-      <input {...rest}/>
+      <input {...rest} />
     </Container>
   );
 }

@@ -44,17 +44,18 @@ export const Main = styled.main`
         background-color: ${({ theme }) => theme.COLORS.DARK_900};
         font-family: Poppins;
         color: ${({ theme }) => theme.COLORS.LIGHT_200};
-        padding: 1rem 2rem;
+        padding: 12px 10px;
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 8px;
 
         svg {
+          //
           font-size: 1.5rem;
         }
         input {
-          display: none;
+          display: none; // some com o input
         }
       }
     }
@@ -141,20 +142,11 @@ export const Main = styled.main`
     }
 
     .buttons {
-      display: flex;
-      gap: 1rem;
       margin-top: 2rem;
-      > button:first-child {
-        font-size: 1rem;
-        font-weight: 400;
-
-        background-color: ${({ theme }) => theme.COLORS.DARK_800};
-      }
-      > button:last-child {
+      button {
         font-weight: 400;
 
         font-size: 1rem;
-
         background-color: ${({ theme }) => theme.COLORS.RED_100};
         transition: all 0.3s;
         &:hover {

@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState } from "react";
 
 import { Container, Main } from "./styles";
 import { Ingrediente } from "../../components/Ingrediente";
@@ -14,82 +14,67 @@ import {
 } from "@phosphor-icons/react";
 
 import { NewIngrediente } from "../../components/New-ingrediente";
-export function EditPrato({
+import { Menu } from "../../components/Menu";
+export function CreatePrato({
   isAdmin = true,
   descriptionDefault = "essa é a descrição deste produto",
   categoryDefault = "drink",
-  nameDefault= "Macarronada",
-priceDefault = "49,99",
+  nameDefault = "Macarronada",
+  priceDefault = "49,99",
   ...rest
 }) {
   const [selectIsOpen, setSelectIsOpen] = useState(false);
   const [price, setPrice] = useState(priceDefault);
-  const [name, setName] =useState(nameDefault)
-  const [category, setCategory] = useState(categoryDefault)
-const [description, setDescription] = useState(descriptionDefault)
+  const [name, setName] = useState(nameDefault);
+  const [category, setCategory] = useState(categoryDefault);
+  const [description, setDescription] = useState(descriptionDefault);
 
   const HandleSelectIsOpen = () => {
     setSelectIsOpen((prevState) => !prevState);
   };
 
-
   return (
-
-<Container {...rest}>
-      <Header isAdmin={isAdmin} />
+    <Container {...rest}>
+<Header/>
       <Main>
         <button>
           <CaretLeft /> voltar
         </button>
         <form>
-          <h1>Editar prato</h1>
+          <h1>Criar prato</h1>
+
           <label className="imgFood" htmlFor="ImgFood">
-            Imagem do prato
+            Imagem do prato{" "}
+            {/*vamos colocar a label em volta de todo conteudo que desejamos mostrar*/}
             <div>
-              <UploadSimple />
-              <span>Selecione imagem para altera-la</span>
-              <input type="file" name="" id="ImgFood" />
+              {" "}
+              {/*cria uma div para colocarmos o background e colocar o conteudo dentro*/}
+              <UploadSimple /> {/*Icone de enviar imagem*/}
+              <span>Selecione imagem</span>{" "}
+              {/*texto que fica ao lado do icone*/}
+              <input type="file" name="" id="ImgFood" />{" "}
+              {/*é aquele icone escrito escolher arquivo que vamos sumir com ele*/}
             </div>
           </label>
 
-          <Input title="Nome" value={name} onChange={e => setName(e.target.value)} />
+          <Input
+            title="Nome"
+            placeholder="Nome do prato"
+            onChange={(e) => setName(e.target.value)}
+          />
           <div className="foodCategory">
             <label htmlFor="food-category">Categoria</label>
             <div className="selectWrapper">
               <select
+                onChange={(e) => setCategory(e.target.value)}
                 onClick={HandleSelectIsOpen}
-                onChange={e=>{ 
-                  setCategory(e.target.value)
-                }}
                 onBlur={() => setSelectIsOpen(false)}
                 name="food-category"
                 id="food-category"
               >
-                {category === "refeicao" ? (
-                  <>
-                    <option value="pratos">Refeição</option>
-                    <option value="sobremesa">Sobremesa</option>
-                    <option value="drink">Drink</option>
-                  </>
-                ) : category === "sobremesa" ? (
-                  <>
-                    <option value="sobremesa">Sobremesa</option>
-                    <option value="pratos">Refeição</option>
-                    <option value="drink">Drink</option>
-                  </>
-                ) : category === "drink" ? (
-                  <>
-                    <option value="drink">Drink</option>
-                    <option value="pratos">Refeição</option>
-                    <option value="sobremesa">Sobremesa</option>
-                  </>
-                ) : (
-                  <>
-                    <option value="drink">Drink</option>
-                    <option value="pratos">Refeição</option>
-                    <option value="sobremesa">Sobremesa</option>
-                  </>
-                )}
+                <option value="pratos">Refeição</option>
+                <option value="sobremesa">Sobremesa</option>
+                <option value="drink">Drink</option>
               </select>
               {!selectIsOpen ? (
                 <CaretUp className="icon focused" />
@@ -102,30 +87,27 @@ const [description, setDescription] = useState(descriptionDefault)
           <div className="tags">
             <label htmlFor="ingredientes">Ingredientes</label>
             <div id="ingredientes">
-              <Ingrediente title="banana" />
               <NewIngrediente />
             </div>
           </div>
 
           <Input
             title="Preço"
-            type="texte"
-            value={`${price}`}
-            onChange={e=> setPrice(e.target.value)}
-            placeholder="Valor"
+            placeholder={`R$00,00`}
+            onChange={(e) => setPrice(e.target.value)}
           />
 
           <div className="descrição">
             <label for="description">Descrição</label>
             <textarea
-              placeholder="Descrição" value={description} onChange={e => setDescription(e.target.value)}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="Fale brevemente sobre o prato, seus ngredientes e composição"
               name=""
               id="description"
             ></textarea>
           </div>
 
           <div className="buttons">
-            <Button title="Exluir Prato" />
             <Button title="Salvar Alterações" />
           </div>
         </form>

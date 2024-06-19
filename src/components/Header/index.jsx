@@ -3,9 +3,11 @@ import { Logo } from "../Logo";
 import { Button } from "../Button";
 import { List, Receipt, SignOut } from "@phosphor-icons/react";
 
+
 export function Header({ isAdmin, ...rest }) {
   return (
     <Container>
+
       <List />
       <Logo isAdmin={isAdmin} />
       {!isAdmin ? (
@@ -23,3 +25,5 @@ export function Header({ isAdmin, ...rest }) {
     </Container>
   );
 }
+
+
