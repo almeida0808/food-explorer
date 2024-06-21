@@ -11,9 +11,38 @@ export const Container = styled.header`
   justify-content: space-between;
   align-items: center;
 
-  svg {
-    color: ${({ theme }) => theme.COLORS.LIGHT_100};
-    font-size: 2rem;
+  .menu {
+    display: flex;
+    gap: 1rem;
+    position: relative;
+    button {
+      background: none;
+      border: none;
+
+      display: flex;
+      align-items: center;
+
+      svg {
+        color: ${({ theme }) => theme.COLORS.LIGHT_100};
+        font-size: 2rem;
+      }
+    }
+    h1 {
+      font-family: Poppins;
+      font-weight: 400;
+      color: white;
+    }
+  }
+  .list {
+    background: none;
+    border: none;
+
+    display: flex;
+    align-items: center;
+    svg {
+      color: ${({ theme }) => theme.COLORS.LIGHT_100};
+      font-size: 2rem;
+    }
   }
 
   > .logo {
@@ -27,6 +56,8 @@ export const Container = styled.header`
 
   > .pedidos {
     svg {
+      color: ${({ theme }) => theme.COLORS.LIGHT_100};
+
       font-size: 1.75rem;
       right: 1rem;
       align-items: center;
@@ -48,12 +79,107 @@ export const Container = styled.header`
     }
   }
 
-  > .buttonRed {
-    display: none;
-    font-weight: 300;
+  .headerDesktop {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+
+    button {
+      border: none;
+      border-radius: 5px;
+    }
+    .logo {
+      svg {
+        font-size: 1.8rem;
+      }
+      h1 {
+        font-size: 1.4rem;
+      }
+    }
+
+    .pesquisar {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      border-radius: 5px;
+      padding: 12px 14px;
+      height: 48px;
+      width: 100%;
+      background-color: ${({ theme }) => theme.COLORS.DARK_900};
+
+      svg {
+        font-size: 2rem;
+        color: ${({ theme }) => theme.COLORS.LIGHT_100};
+      }
+      input {
+        width: 100%;
+        border: none;
+        background: none;
+        outline: none;
+        color: ${({ theme }) => theme.COLORS.LIGHT_100};
+        &::placeholder {
+          font-size: 0.8rem;
+        }
+      }
+    }
+
+    .pedidos,
+    .newPrato {
+      height: 48px;
+
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 290px;
+      background-color: ${({ theme }) => theme.COLORS.RED_300};
+      border: none;
+      border-radius: 5px;
+
+      color: ${({ theme }) => theme.COLORS.LIGHT_100};
+      font-family: Poppins;
+      font-weight: 400;
+
+      svg {
+        font-size: 1.6rem;
+      }
+    }
+    .signOut {
+      display: flex;
+      align-items: center;
+      background: none;
+
+      svg {
+        color: white;
+        font-size: 1.6rem;
+      }
+    }
   }
 
-  > .signOut {
-    display: none;
+  @media (min-width: 500px) {
+    padding: 24px 80px;
+
+    > .pedidos {
+      svg {
+        right: 5.6rem;
+      }
+    }
+  }
+
+  @media (min-width: 769px) {
+    padding: 24px 80px;
+
+    > .pedidos {
+      svg {
+        right: 5rem;
+      }
+    }
+  }
+
+  @media (min-width: 1024px) {
+    padding: 24px 80px;
   }
 `;

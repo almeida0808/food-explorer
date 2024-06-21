@@ -1,6 +1,7 @@
 import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
+
   align-items: center;
   gap: 10px;
   .exagon {
@@ -8,6 +9,8 @@ export const Container = styled.div`
     color: ${({ theme }) => theme.COLORS.BLUE_200};
   }
   div {
+    width: max-content;
+
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -18,7 +21,6 @@ export const Container = styled.div`
       font-size: 2.3rem;
       font-style: normal;
       font-weight: 700;
-
       color: ${({ theme }) => theme.COLORS.LIGHT_100};
     }
 

@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   margin-bottom: 1.5rem;
+  width: 100%;
   > h2 {
     // ESTILO DO TITULO
     margin: 0 0 1.5rem 1.5rem;

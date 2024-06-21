@@ -1,13 +1,13 @@
 import { Container, Main } from "./styles";
-import { Header } from "../../components/Header";
 import { CardFood } from "../../components/Card-food";
 import frutasBanner from "../../assets/frutas-banner.png";
 import { CarrosselFood } from "../../components/Carrosel";
 import { Footer } from "../../components/Footer";
+import { Menu } from "../../components/Menu";
 export function Home({ isAdmin = false, ...rest }) {
   return (
     <Container>
-      <Header isAdmin={isAdmin}/>
+      <Menu isAdmin={isAdmin}/>
       <Main>
         <section className="banner">
           <img src={frutasBanner} alt="" />
@@ -16,7 +16,7 @@ export function Home({ isAdmin = false, ...rest }) {
             <div>
               <h2>Sabores inigualáveis</h2>
               <p>
-                Sinta o cuidado do preparo com <br />
+                Sinta o cuidado do preparo com
                 ingredientes selecionados.
               </p>
             </div>

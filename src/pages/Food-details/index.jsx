@@ -1,10 +1,10 @@
 import { Container, Main } from "./styles";
-import { Header } from "../../components/Header";
+import { Menu } from "../../components/Menu";
 import { Footer } from "../../components/Footer";
-import { CaretLeft, Minus, Plus, Receipt } from "@phosphor-icons/react";
 import { Button } from "../../components/Button";
 import maracuja from "../../assets/maracuja.png";
 import { Ingrediente } from "../../components/Ingrediente";
+import { CaretLeft, Minus, Plus, Receipt } from "@phosphor-icons/react";
 
 const Ingredientes = [
   {
@@ -35,7 +35,7 @@ export function FoodDetails({
 }) {
   return (
     <Container>
-      <Header isAdmin={isAdmin} />
+      <Menu isAdmin={isAdmin} />
       <Main>
         <button>
           <CaretLeft />

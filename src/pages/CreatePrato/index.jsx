@@ -16,7 +16,7 @@ import {
 import { NewIngrediente } from "../../components/New-ingrediente";
 import { Menu } from "../../components/Menu";
 export function CreatePrato({
-  isAdmin = true,
+  isAdmin ,
   descriptionDefault = "essa é a descrição deste produto",
   categoryDefault = "drink",
   nameDefault = "Macarronada",
@@ -35,8 +35,8 @@ export function CreatePrato({
 
   return (
     <Container {...rest}>
-<Header/>
-      <Main>
+<Menu isAdmin={isAdmin}/>
+      <Main >
         <button>
           <CaretLeft /> voltar
         </button>

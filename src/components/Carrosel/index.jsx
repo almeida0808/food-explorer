@@ -36,7 +36,34 @@ export function CarrosselFood({ title,like= false, isAdmin, ...rest }) {
           isAdmin={isAdmin}
           value={"19,90"}
           imageUrl={maracuja}
-        />
+        />  <CardFood
+        title={"Suco de Maracujá"}
+        like={like}
+        isAdmin={isAdmin}
+        value={"19,90"}
+        imageUrl={maracuja}
+      />
+      <CardFood
+        title={"Suco de Maracujá"}
+        like={like}
+        isAdmin={isAdmin}
+        value={"19,90"}
+        imageUrl={maracuja}
+      />{" "}
+      <CardFood
+        title={"Suco de Maracujá"}
+        like={like}
+        isAdmin={isAdmin}
+        value={"19,90"}
+        imageUrl={maracuja}
+      />
+        <CardFood
+        title={"Suco de Maracujá"}
+        like={like}
+        isAdmin={isAdmin}
+        value={"19,90"}
+        imageUrl={maracuja}
+      />
       </section>
     </Container>
   );

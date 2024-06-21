@@ -15,7 +15,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ThemeProvider theme={temas}>
       <GlobalStyle />
-      <CreatePrato isAdmin={false}/>
+      <Home isAdmin/>
     </ThemeProvider>
   </React.StrictMode>
 );

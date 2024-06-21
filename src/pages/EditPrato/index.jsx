@@ -2,10 +2,10 @@ import { useState,useEffect } from "react";
 
 import { Container, Main } from "./styles";
 import { Ingrediente } from "../../components/Ingrediente";
-import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
+import { Menu } from "../../components/Menu";
 import {
   UploadSimple,
   CaretLeft,
@@ -36,7 +36,7 @@ const [description, setDescription] = useState(descriptionDefault)
   return (
 
 <Container {...rest}>
-      <Header isAdmin={isAdmin} />
+      <Menu isAdmin={isAdmin} />
       <Main>
         <button>
           <CaretLeft /> voltar
