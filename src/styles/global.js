@@ -9,6 +9,18 @@ export default createGlobalStyle`
  :root{
 font-size: 16px;
 
+
+button{
+    cursor: pointer;
+    font-family: "Poppins", sans-serif;
+  font-weight: 500;
+transition: filter 0.3s;
+  &:hover{
+    filter: brightness(0.8);
+
+  }
+}
+
 @media (max-width:768px) {
     font-size: 14px;
 
@@ -26,15 +38,5 @@ input{
     font-weight: 400;
 }
 
-button{
-    cursor: pointer;
-    font-family: "Poppins", sans-serif;
-  font-weight: 500;
-transition: filter 0.3s;
-  &:hover{
-    filter: brightness(0.8);
-
-  }
-}
  }}
  `;

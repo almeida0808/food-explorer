@@ -31,6 +31,7 @@ export function CarrosselFood({ title,like= false, isAdmin, ...rest }) {
           imageUrl={maracuja}
         />
           <CardFood
+          
           title={"Suco de Maracujá"}
           like={like}
           isAdmin={isAdmin}

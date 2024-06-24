@@ -5,7 +5,7 @@ export const Container = styled.div`
   width: 100%;
   > h2 {
     // ESTILO DO TITULO
-    margin: 0 0 1.5rem 1.5rem;
+    margin: 0 0 0 1.5rem;
     color: ${({ theme }) => theme.COLORS.LIGHT_300};
     font-family: Poppins;
     font-size: 1.12rem;
@@ -22,6 +22,13 @@ export const Container = styled.div`
 
     &::-webkit-scrollbar {
       display: none;
+    }
+  }
+
+  @media (min-width: 768px) {
+    h2 {
+      font-size: 24px;
+      font-weight: 600;
     }
   }
 `;

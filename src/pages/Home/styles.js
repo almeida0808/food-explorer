@@ -23,17 +23,18 @@ export const Main = styled.main`
   flex-direction: column;
 
   > .banner {
+    height: max-content;
     margin-top: 2.6rem;
     position: relative;
     > img {
       width: 12rem;
       height: 9rem;
       position: absolute;
-      bottom: 0px;
-      left: -1.6rem;
+      bottom: 49px;
+      left: -1rem;
       z-index: 5;
     }
-    .backround-banner {
+    .background-banner {
       box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
       background: ${({ theme }) => theme.COLORS.GRADIENT_200};
       height: 7rem;
@@ -64,16 +65,84 @@ export const Main = styled.main`
       }
     }
 
+    @media (min-width: 375px) {
+      img {
+        bottom: 56px;
+      }
+    }
+
+    @media (min-width: 400px) {
+      .background-banner {
+        div {
+          top: 1.2rem;
+          left: 12rem;
+
+          h2 {
+            font-size: 1.3rem;
+          }
+
+          p {
+            font-size: 0.8rem;
+            width: 250px;
+          }
+        }
+      }
+    }
+
+    @media (min-width: 550px) {
+      .background-banner {
+        div {
+          top: 1.2rem;
+          left: 12rem;
+
+          h2 {
+            font-size: 2rem;
+          }
+
+          p {
+            font-size: 0.7rem;
+            width: max-content;
+          }
+        }
+      }
+    }
+    @media (min-width: 769px) {
+      margin-top: 5.5rem;
+
+      .background-banner {
+        height: 120px;
+        div {
+          top: 0.6rem;
+          left: 19rem;
+
+          h2 {
+            font-size: 2rem;
+          }
+
+          p {
+            font-size: 0.9rem;
+            width: 310px;
+          }
+        }
+      }
+      img {
+        width: 300px;
+        height: 180px;
+        bottom: 57px;
+      }
+    }
+
     @media (min-width: 1024px) {
       margin-top: 130px;
       img {
         bottom: 66px;
-        left: -60px;
+        left: -45px;
         width: 560px;
         height: 320px;
       }
 
-      .backround-banner {
+      .background-banner {
+        margin: 0 0 4rem 50px;
         height: 200px;
 
         > div {
@@ -93,7 +162,7 @@ export const Main = styled.main`
     }
 
     @media (min-width: 1300px) {
-      .backround-banner {
+      .background-banner {
         height: 200px;
 
         > div {
