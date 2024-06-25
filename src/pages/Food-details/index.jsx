@@ -37,36 +37,54 @@ export function FoodDetails({
     <Container>
       <Menu isAdmin={isAdmin} />
       <Main>
-        <button>
-          <CaretLeft />
-          voltar
-        </button>
+        <div className="voltar">
+          <button>
+            <CaretLeft />
+            voltar
+          </button>
+        </div>
 
-        <img src={imgURL} alt={title} />
-        <h1>{title}</h1>
-        <p>{description}</p>
+        <div className="food">
+          <img src={imgURL} alt={title} />
 
-        <section className="ingredientes">
-          <Ingrediente title="Uva" />
-          <Ingrediente title="rabanete" />
-          <Ingrediente title="Feijão" />
-          <Ingrediente title="Macarrão" />
-          <Ingrediente title="Uva" />
-          <Ingrediente title="rabanete" />
-        </section>
+          <div className="details">
+            <h1>{title}</h1>
+            <p>{description}</p>
 
-        {!isAdmin ? // SE isAdmin for falso renderize esse elemento
-        (<div className="addFood">
-            <div className="quantidade">
-              <button><Minus /></button>
-              <span>01</span>
-              <button><Plus/></button>
-            </div>
-            <Button title={<span><Receipt/>pedir ∙ R${value}</span>}/>
-          </div>) : // se não for falso ele vai ser admin, então renderize esse 
-          ( <Button title="Editar prato" />)}
+            <section className="ingredientes">
+              <Ingrediente isAdmin={isAdmin} title="Uva" />
+              <Ingrediente isAdmin={isAdmin} title="rabanete" />
+              <Ingrediente isAdmin={isAdmin} title="Feijão" />
+              <Ingrediente isAdmin={isAdmin} title="Macarrão" />
+              <Ingrediente isAdmin={isAdmin} title="Uva" />
+              <Ingrediente isAdmin={isAdmin} title="rabanete" />
+            </section>
 
-
+            {!isAdmin ? ( // SE isAdmin for falso renderize esse elemento
+              <div className="addFood">
+                <div className="quantidade">
+                  <button>
+                    <Minus />
+                  </button>
+                  <span>01</span>
+                  <button>
+                    <Plus />
+                  </button>
+                </div>
+                <Button
+                  title={
+                    <span>
+                      <Receipt />
+                      pedir ∙ R${value}
+                    </span>
+                  }
+                />
+              </div> // se não for falso ele vai ser admin, então renderize esse
+            ) : (
+              <Button title="Editar prato" />
+            )}
+          </div>
+        </div>
       </Main>
       <Footer />
     </Container>

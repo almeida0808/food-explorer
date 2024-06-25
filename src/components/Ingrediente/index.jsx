@@ -1,11 +1,19 @@
 import { Container } from "./styles";
 import { X } from "@phosphor-icons/react";
 
-export function Ingrediente({title,...rest}) {
+export function Ingrediente({ title, isAdmin =true, ...rest }) {
   return (
     <Container>
-{title}
-<button><X/></button>
+      {isAdmin ? (
+        <>
+          {title}
+          <button>
+            <X />
+          </button>
+        </>
+      ) : (
+        <>{title}</>
+      )}
     </Container>
   );
 }
