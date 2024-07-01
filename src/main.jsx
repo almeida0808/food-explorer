@@ -15,7 +15,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ThemeProvider theme={temas}>
       <GlobalStyle />
-      <FoodDetails isAdmin={false}/>
+      <Home isAdmin={true}/>
     </ThemeProvider>
   </React.StrictMode>
 );

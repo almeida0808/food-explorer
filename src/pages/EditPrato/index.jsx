@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import { Container, Main } from "./styles";
 import { Ingrediente } from "../../components/Ingrediente";
@@ -18,24 +18,22 @@ export function EditPrato({
   isAdmin = true,
   descriptionDefault = "essa é a descrição deste produto",
   categoryDefault = "drink",
-  nameDefault= "Macarronada",
-priceDefault = "49,99",
+  nameDefault = "Macarronada",
+  priceDefault = "49,99",
   ...rest
 }) {
   const [selectIsOpen, setSelectIsOpen] = useState(false);
   const [price, setPrice] = useState(priceDefault);
-  const [name, setName] =useState(nameDefault)
-  const [category, setCategory] = useState(categoryDefault)
-const [description, setDescription] = useState(descriptionDefault)
+  const [name, setName] = useState(nameDefault);
+  const [category, setCategory] = useState(categoryDefault);
+  const [description, setDescription] = useState(descriptionDefault);
 
   const HandleSelectIsOpen = () => {
     setSelectIsOpen((prevState) => !prevState);
   };
 
-
   return (
-
-<Container {...rest}>
+    <Container {...rest}>
       <Menu isAdmin={isAdmin} />
       <Main>
         <button>
@@ -43,82 +41,96 @@ const [description, setDescription] = useState(descriptionDefault)
         </button>
         <form>
           <h1>Editar prato</h1>
-          <label className="imgFood" htmlFor="ImgFood">
-            Imagem do prato
-            <div>
-              <UploadSimple />
-              <span>Selecione imagem para altera-la</span>
-              <input type="file" name="" id="ImgFood" />
-            </div>
-          </label>
 
-          <Input title="Nome" value={name} onChange={e => setName(e.target.value)} />
-          <div className="foodCategory">
-            <label htmlFor="food-category">Categoria</label>
-            <div className="selectWrapper">
-              <select
-                onClick={HandleSelectIsOpen}
-                onChange={e=>{ 
-                  setCategory(e.target.value)
-                }}
-                onBlur={() => setSelectIsOpen(false)}
-                name="food-category"
-                id="food-category"
-              >
-                {category === "refeicao" ? (
-                  <>
-                    <option value="pratos">Refeição</option>
-                    <option value="sobremesa">Sobremesa</option>
-                    <option value="drink">Drink</option>
-                  </>
-                ) : category === "sobremesa" ? (
-                  <>
-                    <option value="sobremesa">Sobremesa</option>
-                    <option value="pratos">Refeição</option>
-                    <option value="drink">Drink</option>
-                  </>
-                ) : category === "drink" ? (
-                  <>
-                    <option value="drink">Drink</option>
-                    <option value="pratos">Refeição</option>
-                    <option value="sobremesa">Sobremesa</option>
-                  </>
+          <div className="formPartOne">
+            <label className="imgFood" htmlFor="ImgFood">
+              Imagem do prato
+              <div>
+                <UploadSimple />
+                <span>Selecione uma imagem para altera-la</span>
+                <input type="file" name="" id="ImgFood" />
+              </div>
+            </label>
+
+            <Input
+            className="name"
+              title="Nome"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+
+            <div className="foodCategory">
+              <label htmlFor="food-category">Categoria</label>
+              <div className="selectWrapper">
+                <select
+                  onClick={HandleSelectIsOpen}
+                  onChange={(e) => {
+                    setCategory(e.target.value);
+                  }}
+                  onBlur={() => setSelectIsOpen(false)}
+                  name="food-category"
+                  id="food-category"
+                >
+                  {category === "refeicao" ? (
+                    <>
+                      <option value="pratos">Refeição</option>
+                      <option value="sobremesa">Sobremesa</option>
+                      <option value="drink">Drink</option>
+                    </>
+                  ) : category === "sobremesa" ? (
+                    <>
+                      <option value="sobremesa">Sobremesa</option>
+                      <option value="pratos">Refeição</option>
+                      <option value="drink">Drink</option>
+                    </>
+                  ) : category === "drink" ? (
+                    <>
+                      <option value="drink">Drink</option>
+                      <option value="pratos">Refeição</option>
+                      <option value="sobremesa">Sobremesa</option>
+                    </>
+                  ) : (
+                    <>
+                      <option value="drink">Drink</option>
+                      <option value="pratos">Refeição</option>
+                      <option value="sobremesa">Sobremesa</option>
+                    </>
+                  )}
+                </select>
+                {!selectIsOpen ? (
+                  <CaretUp className="icon focused" />
                 ) : (
-                  <>
-                    <option value="drink">Drink</option>
-                    <option value="pratos">Refeição</option>
-                    <option value="sobremesa">Sobremesa</option>
-                  </>
+                  <CaretDown className="icon default" />
                 )}
-              </select>
-              {!selectIsOpen ? (
-                <CaretUp className="icon focused" />
-              ) : (
-                <CaretDown className="icon default" />
-              )}
+              </div>
             </div>
           </div>
 
-          <div className="tags">
-            <label htmlFor="ingredientes">Ingredientes</label>
-            <div id="ingredientes">
-              <Ingrediente title="banana" />
-              <NewIngrediente />
+          <div className="formPartTwo">
+            <div className="tags">
+              <label htmlFor="ingredientes">Ingredientes</label>
+              <div id="ingredientes">
+                <Ingrediente title="banana" />
+                <NewIngrediente />
+              </div>
             </div>
+
+            <Input  className="preço"
+              title="Preço"
+              type="texte"
+              value={`${price}`}
+              onChange={(e) => setPrice(e.target.value)}
+              placeholder="Valor"
+            />
           </div>
 
-          <Input
-            title="Preço"
-            type="texte"
-            value={`${price}`}
-            onChange={e=> setPrice(e.target.value)}
-            placeholder="Valor"
-          />
 
           <div className="descrição">
             <label for="description">Descrição</label>
             <textarea
-              placeholder="Descrição" value={description} onChange={e => setDescription(e.target.value)}
+              placeholder="Descrição"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
               name=""
               id="description"
             ></textarea>

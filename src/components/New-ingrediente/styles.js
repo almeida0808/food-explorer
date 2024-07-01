@@ -4,7 +4,6 @@ export const Container = styled.div`
   align-items: center;
   gap: 6px;
   padding: 0.5rem 0.9rem;
-  width: 96px;
   height: 26px;
 
   background: none;
@@ -16,12 +15,9 @@ export const Container = styled.div`
   font-size: 1rem;
   font-family: Roboto;
 
-  input {
-    background: none;
-    border: none;
-    outline: none;
+  span {
     color: ${({ theme }) => theme.COLORS.LIGHT_500};
-    width: 100%;
+    width: max-content;
   }
   button {
     display: flex;
@@ -30,7 +26,7 @@ export const Container = styled.div`
     background: none;
     color: ${({ theme }) => theme.COLORS.LIGHT_100};
     svg {
-      font-size: 0.9rem;
+      font-size: 12.5px;
       color: ${({ theme }) => theme.COLORS.LIGHT_500};
     }
   }

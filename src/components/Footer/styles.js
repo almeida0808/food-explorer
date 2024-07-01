@@ -9,6 +9,11 @@ export const Container = styled.footer`
   align-items: center;
   height: max-content;
   margin-top: 2rem;
+  width: 100%;
+
+  position: relative;
+  bottom: 0;
+
   .logo {
     gap: 01px;
     h1,
