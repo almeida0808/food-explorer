@@ -12,11 +12,11 @@ export function CarrosselFood({ title, like = false, isAdmin, ...rest }) {
   const handleLeftClick = (e) => {
     e.preventDefault();
     console.log(carrosel.current.offsetWidth);
-    carrosel.current.scrollLeft -= carrosel.current.offsetWidth;
+    carrosel.current.scrollLeft -= 350;
   };
   const handleRightClick = (e) => {
     e.preventDefault();
-    carrosel.current.scrollLeft += carrosel.current.offsetWidth;
+    carrosel.current.scrollLeft += 350;
   };
 
   return (
