@@ -1,31 +1,37 @@
 import { Container } from "./styles";
 import { Logo } from "../../components/Logo";
 import { Input } from "../../components/Input";
-import {Button} from "../../components/Button"
-import {TextButton} from "../../components/Text-button"
+import { Button } from "../../components/Button";
+import { TextButton } from "../../components/Text-button";
 import { useMediaQuery } from "react-responsive";
+
+import { useAuth } from "../../hooks/auth";
 import { useState } from "react";
 
-
 export function SignIn() {
+  const isDesktop = useMediaQuery({ minWidth: 768 });
+  const { signIn } = useAuth();
 
-const isDesktop = useMediaQuery({minWidth: 768})
+const [email, setEmail] = useState("")
+const [password, setPassword] = useState("")
+
+  function handleSignIn(){
+    signIn({email,password})
+  }
   return (
     <Container>
       <Logo />
-      
-<form>
-    {isDesktop && <h1>Faça seu login</h1>}
 
-      <Input title="Email"  placeholder="exemplo@email.com" />
-      <Input title="Senha"  placeholder="No mínimo 6 caracteres" />
+      <form>
+        {isDesktop && <h1>Faça seu login</h1>}
 
-      <Button title="Entrar"/>
+        <Input title="Email" onChange={e => setEmail(e.target.value)} placeholder="exemplo@email.com" />
+        <Input type="password" title="Senha" onChange={e => setPassword(e.target.value)} placeholder="No mínimo 6 caracteres" />
+ 
+        <Button title="Entrar" onClick={handleSignIn} />
 
-      <TextButton title="Criar uma Conta"/>
-  
-</form>
-
+        <TextButton title="Criar uma Conta" />
+      </form>
     </Container>
   );
 }

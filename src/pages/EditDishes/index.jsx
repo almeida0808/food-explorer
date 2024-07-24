@@ -14,7 +14,7 @@ import {
 } from "@phosphor-icons/react";
 
 import { NewIngrediente } from "../../components/New-ingrediente";
-export function EditPrato({
+export function EditDishes({
   isAdmin = true,
   descriptionDefault = "essa é a descrição deste produto",
   categoryDefault = "drink",

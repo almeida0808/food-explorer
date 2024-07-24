@@ -14,7 +14,7 @@ import {
 } from "@phosphor-icons/react";
 
 import { NewIngrediente } from "../../components/New-ingrediente";
-export function CreatePrato({
+export function CreateDishes({
   isAdmin ,
    ...rest
 }) {
