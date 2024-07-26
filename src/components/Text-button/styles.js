@@ -5,4 +5,5 @@ export const Container = styled.button`
   border: none;
   font-size: 0.87rem;
   color: ${({ theme }) => theme.COLORS.LIGHT_100};
+  width: 100%;
 `;

@@ -20,9 +20,7 @@ export const Main = styled.main`
   margin: 0 auto;
 
   grid-area: main;
-  > button:first-child {
-    background: none;
-    border: none;
+  > a:first-child {
     color: ${({ theme }) => theme.COLORS.LIGHT_100};
 
     display: flex;

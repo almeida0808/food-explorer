@@ -12,6 +12,12 @@ export const Container = styled.div`
   text-align: center;
   padding: 1.5rem;
 
+  a:first-child {
+    background: none;
+    width: max-content;
+    color: ${({ theme }) => theme.COLORS.LIGHT_100};
+  }
+
   > .like,
   .edit {
     cursor: pointer;

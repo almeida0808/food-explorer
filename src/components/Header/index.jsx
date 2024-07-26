@@ -10,15 +10,25 @@ import {
 } from "@phosphor-icons/react";
 import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
+import { useAuth } from "../../hooks/auth";
+import { Link } from "react-router-dom";
 
 export function Header({
   value = 10,
-  isAdmin,
+  isAdmin ,
   menuIsOpen,
   HandleToglleMenu,
   ...rest
 }) {
   const isDesktop = useMediaQuery({ minWidth: 1024 }); // verifica se tem tamanho de desktop
+
+
+  const {signOut} = useAuth()  
+
+function handleSignOut(){
+  signOut()
+}
+
 
   return (
     <Container>
@@ -62,14 +72,14 @@ export function Header({
             </button>
 
 ): (
-  <button className="newPrato">
+  <Link to="/new" className="newPrato">
     Novo prato
-            </button>
+            </Link>
  )}
 
 
 
-            <button className="signOut">
+            <button className="signOut" onClick={handleSignOut}>
               <SignOut />
             </button>
           </div>

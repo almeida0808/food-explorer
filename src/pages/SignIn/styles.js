@@ -16,6 +16,11 @@ export const Container = styled.div`
     grid-area: form;
     display: flex;
     flex-direction: column;
+
+    button:last-child {
+      width: max-content;
+      width: 100%;
+    }
   }
 
   @media (min-width: 768px) {

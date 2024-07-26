@@ -45,12 +45,20 @@ export const Container = styled.div`
       margin-top: 2rem;
       display: flex;
       flex-direction: column;
-      a {
+      button {
+        background: none;
+        display: flex;
+        justify-content: initial;
+        border: none;
+        color: white;
+        padding: 10px 10px 10px 0;
         font-family: Poppins;
         font-size: 1.8rem;
         font-weight: 200;
-        padding: 10px 10px 10px 0;
         border-bottom: 1px solid ${({ theme }) => theme.COLORS.DARK_1000};
+      }
+
+      a {
       }
     }
   }

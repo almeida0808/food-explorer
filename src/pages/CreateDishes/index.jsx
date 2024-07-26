@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 
 import { Container, Main } from "./styles";
-import { Ingrediente } from "../../components/Ingrediente";
 import { Footer } from "../../components/Footer";
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
@@ -14,27 +13,36 @@ import {
 } from "@phosphor-icons/react";
 
 import { NewIngrediente } from "../../components/New-ingrediente";
-export function CreateDishes({
-  isAdmin ,
-   ...rest
-}) {
+import { Link } from "react-router-dom";
+import { useAuth } from "../../hooks/auth";
+
+
+export function CreateDishes({ ...rest }) {
   const [selectIsOpen, setSelectIsOpen] = useState(false);
-  const [price, setPrice] = useState();
+  const [value, setValue] = useState();
   const [name, setName] = useState();
   const [category, setCategory] = useState();
   const [description, setDescription] = useState();
+
+
+  const {user} = useAuth()
+
+  const [role, setRole ] = useState(user.role)
+const isAdmin = role == "admin"
+
 
   const HandleSelectIsOpen = () => {
     setSelectIsOpen((prevState) => !prevState);
   };
 
+
   return (
     <Container {...rest}>
       <Menu isAdmin={isAdmin} />
       <Main>
-        <button>
+        <Link to="/">
           <CaretLeft /> voltar
-        </button>
+        </Link>
         <form>
           <h1>Criar Prato</h1>
 
@@ -49,10 +57,12 @@ export function CreateDishes({
             </label>
 
             <Input
-            className="name"
+              className="name"
               title="Nome"
-              value={name}
               placeholder="Nome do Prato"
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
             />
 
             <div className="foodCategory">
@@ -68,8 +78,8 @@ export function CreateDishes({
                   id="food-category"
                 >
                   <option value="sobremesa">Sobremesa</option>
-                      <option value="pratos">Refeição</option>
-                      <option value="drink">Drink</option>
+                  <option value="pratos">Refeição</option>
+                  <option value="drink">Drink</option>
                 </select>
                 {!selectIsOpen ? (
                   <CaretUp className="icon focused" />
@@ -88,13 +98,16 @@ export function CreateDishes({
               </div>
             </div>
 
-            <Input  className="preço"
+            <Input
+              className="preço"
               title="Preço"
               type="text"
               placeholder="19,99"
+              onChange={(e) => {
+                setValue(e.target.value);
+              }}
             />
           </div>
-
 
           <div className="descrição">
             <label for="description">Descrição</label>
@@ -102,6 +115,9 @@ export function CreateDishes({
               placeholder="Descreva seu prato ness campo"
               name=""
               id="description"
+              onChange={(e) => {
+                setDescription(e.target.value);
+              }}
             ></textarea>
           </div>
 

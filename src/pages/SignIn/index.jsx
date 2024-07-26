@@ -5,6 +5,8 @@ import { Button } from "../../components/Button";
 import { TextButton } from "../../components/Text-button";
 import { useMediaQuery } from "react-responsive";
 
+import { Link } from "react-router-dom";
+
 import { useAuth } from "../../hooks/auth";
 import { useState } from "react";
 
@@ -30,7 +32,9 @@ const [password, setPassword] = useState("")
  
         <Button title="Entrar" onClick={handleSignIn} />
 
+        <Link to="/register"> 
         <TextButton title="Criar uma Conta" />
+        </Link>
       </form>
     </Container>
   );

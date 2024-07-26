@@ -3,6 +3,7 @@ import { Button } from "../Button";
 import { Heart, Minus, Plus, PencilSimple } from "@phosphor-icons/react";
 import { useMediaQuery } from "react-responsive";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export function CardFood({
   isAdmin = false,
@@ -26,7 +27,9 @@ export function CardFood({
       {
         // caso seja um admin moste o icone do lapis
         isAdmin ? (
+          <Link to="/edit">
           <PencilSimple className="edit" />
+          </Link>
         ) : // caso não seja admin verifique se o like é falso , se for falso renderize o coração vazado
         !like ? (
           <Heart className="like" onClick={handleLike}/>

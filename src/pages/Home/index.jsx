@@ -5,11 +5,19 @@ import { CarrosselFood } from "../../components/Carrosel";
 import { Footer } from "../../components/Footer";
 import { Menu } from "../../components/Menu";
 import { useState } from "react";
-export function Home({ isAdmin = false, ...rest }) {
+import { useAuth } from "../../hooks/auth";
+export function Home({  ...rest }) {
+
+const {user} = useAuth()
+
+  const [role, setRole ] = useState(user.role)
+const isAdmin = role == "admin"
 
   return (
+    
     <Container>
-      <Menu isAdmin={isAdmin}/>
+      <Menu isAdmin={isAdmin} onClick={()=> console.log(isAdmin)
+}/>
       <Main>
         <section className="banner">
           <img src={frutasBanner} alt="" />

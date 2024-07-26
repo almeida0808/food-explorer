@@ -128,7 +128,7 @@ export const Container = styled.header`
     .pedidos,
     .newPrato {
       height: 48px;
-
+      text-decoration: none;
       display: flex;
       flex-direction: row;
       align-items: center;
