@@ -21,6 +21,7 @@ export const Main = styled.main`
 
   grid-area: main;
   > a:first-child {
+    text-decoration: none;
     color: ${({ theme }) => theme.COLORS.LIGHT_100};
 
     display: flex;

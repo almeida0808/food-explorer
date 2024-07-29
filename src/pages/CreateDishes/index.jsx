@@ -15,7 +15,7 @@ import {
 import { NewIngrediente } from "../../components/New-ingrediente";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/auth";
-
+import { Ingrediente } from "../../components/Ingrediente";
 
 export function CreateDishes({ ...rest }) {
   const [selectIsOpen, setSelectIsOpen] = useState(false);
@@ -24,17 +24,22 @@ export function CreateDishes({ ...rest }) {
   const [category, setCategory] = useState();
   const [description, setDescription] = useState();
 
+  const [ingredientes, setIngredientes] = useState([]);
+  const [newIngrediente, setNewIngrediente] = useState([]);
 
-  const {user} = useAuth()
+  function handleAddIngredientes() {
+    setLinks((prevState) => [...prevState, newIngrediente]);
+    setNewIngrediente("");
+  }
 
-  const [role, setRole ] = useState(user.role)
-const isAdmin = role == "admin"
+  const { user } = useAuth();
 
+  const [role, setRole] = useState(user.role);
+  const isAdmin = role == "admin";
 
   const HandleSelectIsOpen = () => {
     setSelectIsOpen((prevState) => !prevState);
   };
-
 
   return (
     <Container {...rest}>
@@ -94,7 +99,13 @@ const isAdmin = role == "admin"
             <div className="tags">
               <label htmlFor="ingredientes">Ingredientes</label>
               <div id="ingredientes">
-                <NewIngrediente />
+              <Ingrediente
+                value="oioi"
+                isNew
+                placeholder="Novo link"
+                onChange={(e) => setNewIngrediente(e.target.value)} // envia o link para nosso estado de new link
+                onClick={console.log("oi")} // quando for clicado faz a função de adicionar novo link
+              />      
               </div>
             </div>
 

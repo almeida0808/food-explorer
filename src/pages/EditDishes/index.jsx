@@ -110,9 +110,13 @@ export function EditDishes({
             <div className="tags">
               <label htmlFor="ingredientes">Ingredientes</label>
               <div id="ingredientes">
-                <Ingrediente title="banana" />
-                <NewIngrediente />
-              </div>
+              <Ingrediente
+                value="oioi"
+                $isNew={true}
+                placeholder="Novo link"
+                onChange={(e) => setNewLink(e.target.value)} // envia o link para nosso estado de new link
+                onClick={console.log("oi")} // quando for clicado faz a função de adicionar novo link
+              />              </div>
             </div>
 
             <Input  className="preço"
