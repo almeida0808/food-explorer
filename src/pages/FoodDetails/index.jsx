@@ -3,7 +3,7 @@ import { Menu } from "../../components/Menu";
 import { Footer } from "../../components/Footer";
 import { Button } from "../../components/Button";
 import maracuja from "../../assets/maracuja.png";
-import { Ingrediente } from "../../components/Ingrediente";
+import { Tag } from "../../components/Tag";
 import { CaretLeft, Minus, Plus, Receipt } from "@phosphor-icons/react";
 
 const Ingredientes = [
@@ -52,12 +52,12 @@ export function FoodDetails({
             <p>{description}</p>
 
             <section className="ingredientes">
-              <Ingrediente isAdmin={isAdmin} title="Uva" />
-              <Ingrediente isAdmin={isAdmin} title="rabanete" />
-              <Ingrediente isAdmin={isAdmin} title="Feijão" />
-              <Ingrediente isAdmin={isAdmin} title="Macarrão" />
-              <Ingrediente isAdmin={isAdmin} title="Uva" />
-              <Ingrediente isAdmin={isAdmin} title="rabanete" />
+              <Tag title="Uva" />
+              <Tag title="rabanete" />
+              <Tag title="Feijão" />
+              <Tag title="Macarrão" />
+              <Tag title="Uva" />
+              <Tag title="rabanete" />
             </section>
 
             {!isAdmin ? ( // SE isAdmin for falso renderize esse elemento

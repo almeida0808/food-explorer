@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 
 import { Container, Main } from "./styles";
-import { Ingrediente } from "../../components/Ingrediente";
 import { Footer } from "../../components/Footer";
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
 import { Menu } from "../../components/Menu";
+import { IngredienteItem } from "../../components/Ingrediente-item";
 import {
   UploadSimple,
   CaretLeft,
@@ -13,7 +13,6 @@ import {
   CaretUp,
 } from "@phosphor-icons/react";
 
-import { NewIngrediente } from "../../components/New-ingrediente";
 export function EditDishes({
   isAdmin = true,
   descriptionDefault = "essa é a descrição deste produto",
@@ -53,7 +52,7 @@ export function EditDishes({
             </label>
 
             <Input
-            className="name"
+              className="name"
               title="Nome"
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -110,16 +109,15 @@ export function EditDishes({
             <div className="tags">
               <label htmlFor="ingredientes">Ingredientes</label>
               <div id="ingredientes">
-              <Ingrediente
-                value="oioi"
-                $isNew={true}
-                placeholder="Novo link"
-                onChange={(e) => setNewLink(e.target.value)} // envia o link para nosso estado de new link
-                onClick={console.log("oi")} // quando for clicado faz a função de adicionar novo link
-              />              </div>
+               
+<IngredienteItem value="Oléo"/>
+<IngredienteItem isNew={true } placeholder="Adicionar"title="Oléo"/>
+
+              </div>
             </div>
 
-            <Input  className="preço"
+            <Input
+              className="preço"
               title="Preço"
               type="texte"
               value={`${price}`}
@@ -127,7 +125,6 @@ export function EditDishes({
               placeholder="Valor"
             />
           </div>
-
 
           <div className="descrição">
             <label for="description">Descrição</label>

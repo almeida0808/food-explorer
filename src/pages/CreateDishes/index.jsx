@@ -5,6 +5,7 @@ import { Footer } from "../../components/Footer";
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
 import { Menu } from "../../components/Menu";
+export { IngredienteItem} from "../../components/Ingrediente-item"
 import {
   UploadSimple,
   CaretLeft,
@@ -12,10 +13,9 @@ import {
   CaretUp,
 } from "@phosphor-icons/react";
 
-import { NewIngrediente } from "../../components/New-ingrediente";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/auth";
-import { Ingrediente } from "../../components/Ingrediente";
+import { IngredienteItem } from "../../components/Ingrediente-item";
 
 export function CreateDishes({ ...rest }) {
   const [selectIsOpen, setSelectIsOpen] = useState(false);
@@ -27,9 +27,13 @@ export function CreateDishes({ ...rest }) {
   const [ingredientes, setIngredientes] = useState([]);
   const [newIngrediente, setNewIngrediente] = useState([]);
 
-  function handleAddIngredientes() {
-    setLinks((prevState) => [...prevState, newIngrediente]);
+  function handleAddTag() {
+    setIngredientes((prevState) => [...prevState, newIngrediente]);
     setNewIngrediente("");
+  }
+
+  function handleRemoveTag(deleted) {
+    setIngredientes((prevState) => prevState.filter(tag => tag !== deleted));
   }
 
   const { user } = useAuth();
@@ -99,13 +103,15 @@ export function CreateDishes({ ...rest }) {
             <div className="tags">
               <label htmlFor="ingredientes">Ingredientes</label>
               <div id="ingredientes">
-              <Ingrediente
-                value="oioi"
-                isNew
-                placeholder="Novo link"
-                onChange={(e) => setNewIngrediente(e.target.value)} // envia o link para nosso estado de new link
-                onClick={console.log("oi")} // quando for clicado faz a função de adicionar novo link
-              />      
+{
+  ingredientes.map((ingrediente,index)=>( <IngredienteItem 
+  key={String(index)} 
+  value={ingrediente} 
+  onClick={()=>handleRemoveTag(ingrediente)}/> ))
+}
+                <IngredienteItem isNew={true} onChange={e=> setNewIngrediente(e.target.value)} value={newIngrediente}
+                onClick={handleAddTag}/>
+                
               </div>
             </div>
 

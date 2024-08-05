@@ -145,13 +145,13 @@ export const Main = styled.main`
         #ingredientes {
           background-color: ${({ theme }) => theme.COLORS.DARK_900};
           border-radius: 5px;
-          padding: 5px 10px;
+          padding: 10px 12px;
           display: flex;
           justify-content: initial;
           align-items: center;
           gap: 8px;
           flex-wrap: wrap;
-          height: 40px;
+          height: max-content;
 
           span {
             background-color: ${({ theme }) => theme.COLORS.LIGHT_600};
@@ -233,7 +233,7 @@ export const Main = styled.main`
       .formPartTwo {
         .tags {
           #ingredientes {
-            height: 44px;
+            width: 580px;
           }
         }
 
