@@ -22,7 +22,7 @@ export function CreateDishes({ ...rest }) {
   const [selectIsOpen, setSelectIsOpen] = useState(false);
   const [value, setValue] = useState();
   const [name, setName] = useState();
-  const [category, setCategory] = useState();
+  const [category, setCategory] = useState("sobremesa");
   const [description, setDescription] = useState();
 
   const [ingredientes, setIngredientes] = useState([]);
@@ -42,12 +42,12 @@ export function CreateDishes({ ...rest }) {
 
   async function handleNewDishe() {
     try{
-      await api.post(`/pratos/1`, {
+      await api.post(`/pratos`, {
       name,
       description,
         category,
         value,
-        ingredientes,
+        ingredientes
       });
       alert("Nota criada com sucesso!");
       navigate("/");
@@ -107,8 +107,8 @@ export function CreateDishes({ ...rest }) {
                   id="food-category"
                 >
                   <option value="sobremesa">Sobremesa</option>
-                  <option value="pratos">Refeição</option>
-                  <option value="drink">Drink</option>
+                  <option value="refeição">Refeição</option>
+                  <option value="bebida">Drink</option>
                 </select>
                 {!selectIsOpen ? (
                   <CaretUp className="icon focused" />
