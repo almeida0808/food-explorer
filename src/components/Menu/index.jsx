@@ -5,11 +5,14 @@ import { Container } from "./styles";
 import { MagnifyingGlass} from "@phosphor-icons/react";
 import { useMediaQuery } from "react-responsive";
 import { useAuth } from "../../hooks/auth";
+import { Link, useNavigate } from "react-router-dom";
 
 export function Menu({ isAdmin, ...rest }) {
   const isDesktop = useMediaQuery({ minWidth: 1024 });
 
   const [menuIsOpen, setMenuIsOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   const HandleToglleMenu = () => {
     setMenuIsOpen((prevState) => !prevState);
@@ -19,6 +22,11 @@ export function Menu({ isAdmin, ...rest }) {
 
 function handleSignOut(){
   signOut()
+}
+
+function handleNewPrato(){
+  navigate('/new')
+  setMenuIsOpen(false)
 }
   return (
     <Container {...rest}>
@@ -42,8 +50,8 @@ function handleSignOut(){
 
             <ul>
               {isAdmin && (
-                <button>
-                  <a>Novo prato</a>
+                <button  onClick={handleNewPrato}>
+                  <a >Novo prato</a>
                 </button>
               )}
               <button onClick={handleSignOut}>

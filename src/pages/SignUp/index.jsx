@@ -7,13 +7,16 @@ import { useMediaQuery } from "react-responsive";
 
 import { useState } from "react"; // STATES DO REACT
 import { api } from "../../services/api"; // IMPORTA AS CONFIGS DO AXIOS
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export function SignUp() {
   //CRIAMOS ESTADOS PRA GUARDAR OS DADOS DO USUÁRIO
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+
+  const navigate = useNavigate();
 
   function handleSignUp() {
     // FUNÇÃO QUE VAI ENVIAR OS DADOS PRO BACKEND
@@ -26,6 +29,7 @@ export function SignUp() {
       .post("/users", { name, email, password })
       .then(() => {
         alert("Usuário criado com sucesso");
+        navigate("/")
       })
       .catch((error) => {
         if (error.response) {
