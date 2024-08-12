@@ -8,27 +8,39 @@ import {
   SignOut,
   MagnifyingGlass,
 } from "@phosphor-icons/react";
-import { useState } from "react";
+import { useEffect, useState, } from "react";
 import { useMediaQuery } from "react-responsive";
 import { useAuth } from "../../hooks/auth";
 import { Link } from "react-router-dom";
+import { api } from "../../services/api";
 
 export function Header({
   value = 10,
-  isAdmin ,
+  isAdmin,
   menuIsOpen,
+  onChange,
   HandleToglleMenu,
   ...rest
+
 }) {
+
+  
   const isDesktop = useMediaQuery({ minWidth: 1024 }); // verifica se tem tamanho de desktop
 
+  const { signOut } = useAuth();
 
-  const {signOut} = useAuth()  
+  function handleSignOut() {
+    signOut();
+  }
 
-function handleSignOut(){
-  signOut()
-}
-
+  const [search,setSearch] = useState("")
+  
+  function handleInputChange(e){
+    const newSearch = e.target.value
+    setSearch(newSearch)
+    onChange(newSearch)
+  }
+  
 
   return (
     <Container>
@@ -61,23 +73,21 @@ function handleSignOut(){
             <div className="pesquisar">
               <MagnifyingGlass />
               <input
+                onChange={handleInputChange}
                 type="text"
                 placeholder="Busque por pratos ou ingredientes"
               />
             </div>
 
-{!isAdmin ? (
-            <button className="pedidos">
-              <Receipt /> {`Pedidos (${value})`}
-            </button>
-
-): (
-  <Link to="/new" className="newPrato">
-    Novo prato
-            </Link>
- )}
-
-
+            {!isAdmin ? (
+              <button className="pedidos">
+                <Receipt /> {`Pedidos (${value})`}
+              </button>
+            ) : (
+              <Link to="/new" className="newPrato">
+                Novo prato
+              </Link>
+            )}
 
             <button className="signOut" onClick={handleSignOut}>
               <SignOut />

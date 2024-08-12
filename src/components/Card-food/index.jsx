@@ -4,14 +4,12 @@ import { Heart, Minus, Plus, PencilSimple } from "@phosphor-icons/react";
 import { useMediaQuery } from "react-responsive";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { api } from "../../services/api";
 
 export function CardFood({
   isAdmin = false,
-  title,
-  value,
-  imageUrl,
-  description= "Descrição serventia de aleria de teste para este prato",
-  ...rest
+ data,
+ ...rest
 }) {
   
   const isDesktop = useMediaQuery({ minWidth: 768 }); // verifica se tem tamanho de desktop
@@ -20,6 +18,7 @@ export function CardFood({
   const handleLike = () => {
     setLike((prevState) => !prevState);
 }
+const imageUrl =`${api.defaults.baseURL}/files/dishFiles/${data.image}`
 
   return (
 
@@ -39,10 +38,10 @@ export function CardFood({
         )
       }
 
-      <img src={imageUrl} alt={title} />
-      <p className="title">{`${title} >`}</p>
-      {isDesktop && <p className="description">{`${description}`}</p>}
-      <p className="value">{`R$${value}`}</p>
+      <img src={imageUrl} alt={data.name} />
+      <p className="title">{`${data.name} >`}</p>
+      {isDesktop && <p className="description">{`${data.description}`}</p>}
+      <p className="value">{`R$${data.value}`}</p>
 
       <div className="AddFood">
             <div className="quantidade">

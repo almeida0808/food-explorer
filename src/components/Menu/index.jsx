@@ -7,10 +7,11 @@ import { useMediaQuery } from "react-responsive";
 import { useAuth } from "../../hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
 
-export function Menu({ isAdmin, ...rest }) {
+export function Menu({onSearch, isAdmin, ...rest }) {
   const isDesktop = useMediaQuery({ minWidth: 1024 });
 
   const [menuIsOpen, setMenuIsOpen] = useState(false);
+const [search , setSearch] = useState("")
 
   const navigate = useNavigate();
 
@@ -28,6 +29,13 @@ function handleNewPrato(){
   navigate('/new')
   setMenuIsOpen(false)
 }
+
+  
+function handleInputChange(e){
+  const newSearch = e.target.value
+  setSearch(newSearch)
+  onSearch(search)
+}
   return (
     <Container {...rest}>
       <Header
@@ -35,6 +43,7 @@ function handleNewPrato(){
         isAdmin={isAdmin}
         menuIsOpen={menuIsOpen}
         HandleToglleMenu={HandleToglleMenu}
+        onChange={onSearch}
       />
 
       {!isDesktop && (
@@ -45,6 +54,7 @@ function handleNewPrato(){
               <input
                 type="text"
                 placeholder="Busque por pratos ou ingredientes"
+                onChange={handleInputChange}
               />
             </div>
 
