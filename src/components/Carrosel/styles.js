@@ -3,6 +3,13 @@ import styled from "styled-components";
 export const Container = styled.div`
   margin-bottom: 1.5rem;
   width: 100%;
+
+  .swiper {
+  }
+  .swiper-button-prev,
+  .swiper-button-next {
+  }
+
   > h2 {
     // ESTILO DO TITULO
     margin: 0 0 0 1.5rem;
@@ -56,29 +63,6 @@ export const Container = styled.div`
         height: 413px;
         display: flex;
         z-index: 1;
-      }
-
-      .left {
-        background: linear-gradient(
-          270deg,
-          rgba(9, 9, 121, 0) 0%,
-          rgba(0, 0, 0, 0.847887323943662) 67%
-        );
-        margin-left: -2px;
-      }
-
-      .right {
-        display: flex;
-        justify-content: right;
-        background: linear-gradient(
-          90deg,
-          rgba(9, 9, 121, 0) 0%,
-          rgba(0, 0, 0, 0.847887323943662) 67%
-        );
-
-        button {
-          justify-content: right;
-        }
       }
     }
   }

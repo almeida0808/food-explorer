@@ -3,14 +3,17 @@ import styled from "styled-components";
 export const Container = styled.div`
   color: ${({ theme }) => theme.COLORS.LIGHT_100};
 
-  width: 12.1rem;
+  width: 210px;
+  height: 240px;
   display: flex;
   flex-direction: column;
+  place-content: center;
+
+  padding: 24px;
 
   flex: none;
 
   text-align: center;
-  padding: 1.5rem;
 
   a:first-child {
     background: none;
@@ -24,7 +27,7 @@ export const Container = styled.div`
 
     position: relative;
     font-size: 1.6rem;
-    left: 8.4rem;
+    left: 140px;
     top: 14px;
     transition: all 0.2s;
 
@@ -36,6 +39,7 @@ export const Container = styled.div`
   > img {
     border-radius: 50%;
     width: 5.2rem;
+    height: 5.2rem;
     margin: 0 auto;
   }
 
@@ -101,6 +105,7 @@ export const Container = styled.div`
 
     img {
       width: 140px;
+      height: 140px;
     }
 
     .title {
@@ -153,6 +158,7 @@ export const Container = styled.div`
 
     img {
       width: 176px;
+      height: 176px;
     }
 
     .title {

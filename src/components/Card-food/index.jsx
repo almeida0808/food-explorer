@@ -6,11 +6,14 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { api } from "../../services/api";
 
+
 export function CardFood({
   isAdmin = false,
  data,
  ...rest
 }) {
+
+  
   
   const isDesktop = useMediaQuery({ minWidth: 768 }); // verifica se tem tamanho de desktop
  
@@ -18,7 +21,9 @@ export function CardFood({
   const handleLike = () => {
     setLike((prevState) => !prevState);
 }
-const imageUrl =`${api.defaults.baseURL}/files/dishFiles/${data.image}`
+
+const imageUrl = `${api.defaults.baseURL}/files/${data.imageUrl}`
+
 
   return (
 
@@ -37,7 +42,6 @@ const imageUrl =`${api.defaults.baseURL}/files/dishFiles/${data.image}`
           <Heart className="like" onClick={handleLike} weight="fill" />
         )
       }
-
       <img src={imageUrl} alt={data.name} />
       <p className="title">{`${data.name} >`}</p>
       {isDesktop && <p className="description">{`${data.description}`}</p>}

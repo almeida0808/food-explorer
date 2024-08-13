@@ -7,6 +7,7 @@ import { Menu } from "../../components/Menu";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../hooks/auth";
 import { api } from "../../services/api";
+import { SwiperSlide } from "swiper/react";
 
 export function Home({ ...rest }) {
   const { user } = useAuth();
@@ -19,16 +20,15 @@ export function Home({ ...rest }) {
   function handleSearchChange(newSearch) {
     setSearch(newSearch);
   }
-
   useEffect(() => {
     async function fetchDishes() {
-      const response = api.get(`/pratos?name=${search}`);
-      setDishes((await response).data.pratos);
-      console.log((await response).data.pratos)
+      const response = await api.get(`/pratos?name=${search}`);
+      setDishes(response.data.pratos);
     }
+    
     fetchDishes();
   }, [search]);
-
+  
   console.log(dishes);
   return (
     <Container>
@@ -45,14 +45,37 @@ export function Home({ ...rest }) {
           </div>
         </section>
 
-        <CarrosselFood dishes={dishes} isAdmin={isAdmin} title="Refeições">
-          {dishes && dishes.map((dishe) => (
-            <CardFood
-            key={String(dishe.id)}
-            data={dishe}
-            />
-          ))}
+      {dishes.filter((dish) => dish.category == "refeição").length > 0 && (
+        <CarrosselFood title="Pratos Principais">
+          {dishes
+            .filter((dish) => dish.category == "refeição")
+            .map((dish) => (<SwiperSlide className="cards">
+            <CardFood isAdmin={isAdmin} key={String(dish.id)} data={dish} />
+          </SwiperSlide>))}
         </CarrosselFood>
+      )}
+
+
+        {dishes.filter((dish) => dish.category == "sobremesa").length > 0 && (
+          <CarrosselFood title="Sobremesas">
+            {dishes
+              .filter((dish) => dish.category == "sobremesa")
+              .map((dish) => (<SwiperSlide className="cards">
+              <CardFood  isAdmin={isAdmin} key={String(dish.id)} data={dish} />
+            </SwiperSlide>))}
+          </CarrosselFood>
+        )}
+
+{dishes.filter((dish) => dish.category == "bebida").length > 0 && (
+          <CarrosselFood title="Bebidas">
+            {dishes
+              .filter((dish) => dish.category == "bebida")
+              .map((dish) => (<SwiperSlide className="cards">
+              <CardFood isAdmin={isAdmin} key={String(dish.id)} data={dish} />
+            </SwiperSlide>))}
+          </CarrosselFood>
+        )}
+
       </Main>
       <Footer />
     </Container>
