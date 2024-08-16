@@ -13,51 +13,130 @@ import {
   CaretUp,
 } from "@phosphor-icons/react";
 
-export function EditDishes({
-  isAdmin = true,
-  descriptionDefault = "essa é a descrição deste produto",
-  categoryDefault = "drink",
-  nameDefault = "Macarronada",
-  priceDefault = "49,99",
-  ...rest
-}) {
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { api } from "../../services/api";
+import { useAuth } from "../../hooks/auth";
+
+export function EditDishes({ ...rest }) {
   const [selectIsOpen, setSelectIsOpen] = useState(false);
-  const [price, setPrice] = useState(priceDefault);
-  const [name, setName] = useState(nameDefault);
-  const [category, setCategory] = useState(categoryDefault);
-  const [description, setDescription] = useState(descriptionDefault);
+  const [isFormValid, setIsFormValid] = useState(false);
+
+  const params = useParams();
+
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  const [role, setRole] = useState(user.role);
+  const isAdmin = role == "admin";
 
   const HandleSelectIsOpen = () => {
     setSelectIsOpen((prevState) => !prevState);
   };
+  const [value, setValue] = useState();
+  const [name, setName] = useState();
+  const [category, setCategory] = useState();
+  const [description, setDescription] = useState();
+
+  const [image, setImage] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
+    const [ingredientes, setIngredientes] = useState([]);
+  const [newIngrediente, setNewIngrediente] = useState("");
+
+
+  useEffect(() => {
+    async function fetchDish() {
+      try {
+        const response = await api.get(`/pratos/${params.id}`);
+        console.log(response.data);
+        setCategory(response.data.category);
+        setDescription(response.data.description);
+        setValue(response.data.value);
+        setName(response.data.name);
+        setImage(response.data.imageUrl);
+        setIngredientes(response.data.ingredientes.map(ingrediente=> ingrediente.name));
+        console.log(ingredientes)
+      } catch (error) {
+        alert(`Erro ao carregar nota: (${error.message})`);
+
+        navigate("/");
+      }
+    }
+
+    fetchDish();
+  }, [params.id]);
+
+
+let imagePreview = `${api.defaults.baseURL}/files/${imageUrl}`;
+
+function handleNewImage(event) {
+  const file = event.target.files[0];
+  setImageFile(file);
+
+  imagePreview = URL.createObjectURL(file);
+  setImage(imagePreview);
+}
+
+  function handleNewTag() {
+    if (!newIngrediente.trim()) {
+      alert("Por favor, adicione um ingrediente válido.");
+      return;
+    }
+    setIngredientes((prevState) => [...prevState, newIngrediente]);
+    setNewIngrediente("");
+    
+  }
+
+function handleRemoveTag(deleted){
+  const confirmDeleted = confirm("Deseja deletar este ingrediente?")
+  if(
+    confirmDeleted
+  ){
+
+    setIngredientes((prevState) => prevState.filter((tag) => tag !== deleted));
+  }
+  return
+
+}
 
   return (
     <Container {...rest}>
       <Menu isAdmin={isAdmin} />
       <Main>
-        <button>
+        <Link to="/">
           <CaretLeft /> voltar
-        </button>
+        </Link>
         <form>
           <h1>Editar prato</h1>
+
+          {imageUrl && (
+            <div className="imgPreview">
+              <span>Imagem Selecionada</span>
+              <img src={image} alt="" />
+            </div>
+          )}
 
           <div className="formPartOne">
             <label className="imgFood" htmlFor="ImgFood">
               Imagem do prato
               <div>
                 <UploadSimple />
-                <span>Selecione uma imagem para altera-la</span>
-                <input type="file" name="" id="ImgFood" />
+                <span>Selecione uma imagem</span>
+                <input
+                  type="file"
+                  id="ImgFood"
+                  onChange={(e) => handleNewImage(e)}
+                />
               </div>
             </label>
 
             <Input
+              maxLength="30"
               className="name"
               title="Nome"
               value={name}
+              placeholder="Nome do Prato"
               onChange={(e) => setName(e.target.value)}
             />
-
             <div className="foodCategory">
               <label htmlFor="food-category">Categoria</label>
               <div className="selectWrapper">
@@ -70,7 +149,7 @@ export function EditDishes({
                   name="food-category"
                   id="food-category"
                 >
-                  {category === "refeicao" ? (
+                  {category === "refeição" ? (
                     <>
                       <option value="pratos">Refeição</option>
                       <option value="sobremesa">Sobremesa</option>
@@ -82,18 +161,14 @@ export function EditDishes({
                       <option value="pratos">Refeição</option>
                       <option value="drink">Drink</option>
                     </>
-                  ) : category === "drink" ? (
-                    <>
-                      <option value="drink">Drink</option>
-                      <option value="pratos">Refeição</option>
-                      <option value="sobremesa">Sobremesa</option>
-                    </>
                   ) : (
-                    <>
-                      <option value="drink">Drink</option>
-                      <option value="pratos">Refeição</option>
-                      <option value="sobremesa">Sobremesa</option>
-                    </>
+                    category === "bebida" && (
+                      <>
+                        <option value="drink">Drink</option>
+                        <option value="pratos">Refeição</option>
+                        <option value="sobremesa">Sobremesa</option>
+                      </>
+                    )
                   )}
                 </select>
                 {!selectIsOpen ? (
@@ -109,37 +184,48 @@ export function EditDishes({
             <div className="tags">
               <label htmlFor="ingredientes">Ingredientes</label>
               <div id="ingredientes">
-               
-<IngredienteItem value="Oléo"/>
-<IngredienteItem isNew={true } placeholder="Adicionar"title="Oléo"/>
-
+                {ingredientes.map((ingrediente, index) => (
+                  <IngredienteItem
+                    key={String(index)}
+                    value={ingrediente}
+                    onClick={()=>handleRemoveTag(ingrediente)}
+                  />
+                ))}
+                <IngredienteItem
+                  isNew
+                  onChange={(e) => setNewIngrediente(e.target.value)}
+                  value={newIngrediente}
+                  onClick={handleNewTag}
+                />
               </div>
             </div>
 
             <Input
               className="preço"
               title="Preço"
-              type="texte"
-              value={`${price}`}
-              onChange={(e) => setPrice(e.target.value)}
-              placeholder="Valor"
+              value={value}
+              type="number"
+              placeholder="19,99"
+              onChange={(e) => {
+                setValue(e.target.value);
+              }}
             />
           </div>
 
           <div className="descrição">
             <label for="description">Descrição</label>
             <textarea
-              placeholder="Descrição"
               value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              name=""
+              placeholder="Descreva seu prato ness campo"
               id="description"
+              onChange={(e) => {
+                setDescription(e.target.value);
+              }}
             ></textarea>
           </div>
 
           <div className="buttons">
-            <Button title="Exluir Prato" />
-            <Button title="Salvar Alterações" />
+            <Button title="Salvar Prato" disabled={isFormValid} />
           </div>
         </form>
       </Main>

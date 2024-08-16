@@ -8,10 +8,10 @@ import {
   SignOut,
   MagnifyingGlass,
 } from "@phosphor-icons/react";
-import { useEffect, useState, } from "react";
+import { useEffect,useNavi, useState, } from "react";
 import { useMediaQuery } from "react-responsive";
 import { useAuth } from "../../hooks/auth";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { api } from "../../services/api";
 
 export function Header({
@@ -21,16 +21,18 @@ export function Header({
   onChange,
   HandleToglleMenu,
   ...rest
-
-}) {
-
   
+}) {
+  
+  
+  const navigate = useNavigate();
   const isDesktop = useMediaQuery({ minWidth: 1024 }); // verifica se tem tamanho de desktop
 
   const { signOut } = useAuth();
 
   function handleSignOut() {
     signOut();
+    navigate("/")
   }
 
   const [search,setSearch] = useState("")

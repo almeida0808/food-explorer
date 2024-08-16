@@ -171,8 +171,21 @@ export const Main = styled.main`
           justify-content: initial;
           align-items: center;
           gap: 8px;
-          flex-wrap: wrap;
+          flex-wrap: nowrap;
+          overflow: scroll;
           height: max-content;
+
+          &::-webkit-scrollbar {
+            height: 5px;
+            width: 100%;
+          }
+          &::-webkit-scrollbar-track {
+            background-color: ${({ theme }) => theme.COLORS.DARK_700};
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background-color: ${({ theme }) => theme.COLORS.LIGHT_600};
+          }
 
           span {
             background-color: ${({ theme }) => theme.COLORS.LIGHT_600};

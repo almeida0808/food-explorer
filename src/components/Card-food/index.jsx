@@ -3,7 +3,7 @@ import { Button } from "../Button";
 import { Heart, Minus, Plus, PencilSimple } from "@phosphor-icons/react";
 import { useMediaQuery } from "react-responsive";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { api } from "../../services/api";
 
 
@@ -20,20 +20,27 @@ export function CardFood({
   const [like, setLike] = useState(false)
   const handleLike = () => {
     setLike((prevState) => !prevState);
+  }
+  
+  const imageUrl = `${api.defaults.baseURL}/files/${data.imageUrl}`
+  const shortName = data.name.length > 12 ? data.name.substring(0, 12) + '...' : data.name;
+
+  const navigate = useNavigate()
+
+function handleEditDish(){
+navigate(`/edit/${data.id}`)
+
 }
-
-const imageUrl = `${api.defaults.baseURL}/files/${data.imageUrl}`
-
 
   return (
 
-    <Container {...rest}>
+    <Container {...rest} >
       {
         // caso seja um admin moste o icone do lapis
         isAdmin ? (
-          <Link to="/edit">
-          <PencilSimple className="edit" />
-          </Link>
+          <button>
+          <PencilSimple onClick={handleEditDish} className="edit" />
+          </button>
         ) : // caso não seja admin verifique se o like é falso , se for falso renderize o coração vazado
         !like ? (
           <Heart className="like" onClick={handleLike}/>
@@ -43,7 +50,8 @@ const imageUrl = `${api.defaults.baseURL}/files/${data.imageUrl}`
         )
       }
       <img src={imageUrl} alt={data.name} />
-      <p className="title">{`${data.name} >`}</p>
+
+      <p className="title" onClick={handleEditDish}>{!isDesktop ? `${shortName} >` : `${data.name} >`}</p>
       {isDesktop && <p className="description">{`${data.description}`}</p>}
       <p className="value">{`R$${data.value}`}</p>
 

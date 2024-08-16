@@ -3,11 +3,18 @@ import styled from "styled-components";
 export const Container = styled.div`
   margin-bottom: 1.5rem;
   width: 100%;
+  height: max-content;
 
   .swiper {
   }
   .swiper-button-prev,
   .swiper-button-next {
+    color: ${({ theme }) => theme.COLORS.LIGHT_300};
+  }
+
+  .swiper-button-next::after,
+  .swiper-button-prev::after {
+    font-size: 18px; /* Ajuste o tamanho da fonte do ícone */
   }
 
   > h2 {
