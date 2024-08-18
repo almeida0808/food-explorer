@@ -33,7 +33,28 @@ export const Main = styled.main`
     font-size: 1rem;
     font-weight: 400;
   }
-
+  .imgPreview {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: max-content;
+    span {
+      color: ${({ theme }) => theme.COLORS.LIGHT_400};
+      font-family: "Roboto", sans-serif;
+      font-weight: 300;
+      font-size: 1rem;
+    }
+    img {
+      border: solid 1px ${({ theme }) => theme.COLORS.LIGHT_400};
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      overflow: hidden;
+      margin: 0 auto;
+      margin-bottom: 18px;
+    }
+  }
   form {
     h1 {
       color: ${({ theme }) => theme.COLORS.LIGHT_100};
@@ -150,8 +171,21 @@ export const Main = styled.main`
           justify-content: initial;
           align-items: center;
           gap: 8px;
-          flex-wrap: wrap;
+          flex-wrap: nowrap;
+          overflow: scroll;
           height: max-content;
+
+          &::-webkit-scrollbar {
+            height: 5px;
+            width: 100%;
+          }
+          &::-webkit-scrollbar-track {
+            background-color: ${({ theme }) => theme.COLORS.DARK_700};
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background-color: ${({ theme }) => theme.COLORS.LIGHT_600};
+          }
 
           span {
             background-color: ${({ theme }) => theme.COLORS.LIGHT_600};
@@ -186,19 +220,12 @@ export const Main = styled.main`
       > button:first-child {
         font-size: 1rem;
         font-weight: 400;
-
-        background-color: ${({ theme }) => theme.COLORS.DARK_800};
       }
       > button:last-child {
         font-weight: 400;
 
         font-size: 1rem;
-
-        background-color: ${({ theme }) => theme.COLORS.RED_100};
         transition: all 0.3s;
-        &:hover {
-          background-color: ${({ theme }) => theme.COLORS.RED_300};
-        }
       }
     }
 

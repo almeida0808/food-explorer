@@ -5,7 +5,7 @@ export function IngredienteItem({ value, onClick,isNew,...rest }) {
   return (
    <Container isNew={isNew}>
     {
-      isNew ? <input maxlength="15" placeholder="Adicionar"type="text" value={value} readOnly={!isNew} {...rest} /> : <span>{value}</span>
+      isNew ? <input maxLength="20" placeholder="Adicionar"type="text" value={value} readOnly={!isNew} {...rest} /> : <span>{value}</span>
 
     }
 

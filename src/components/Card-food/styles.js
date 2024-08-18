@@ -3,16 +3,25 @@ import styled from "styled-components";
 export const Container = styled.div`
   color: ${({ theme }) => theme.COLORS.LIGHT_100};
 
-  width: 12.1rem;
+  width: 150px;
+  height: 250px;
   display: flex;
   flex-direction: column;
+  place-content: center;
+  padding: 16px;
 
   flex: none;
 
   text-align: center;
-  padding: 1.5rem;
 
-  a:first-child {
+  transition: all 0.2s;
+  &:hover {
+    transform: scale(1.05);
+    filter: saturate(1.2);
+  }
+
+  button:first-child {
+    border: none;
     background: none;
     width: max-content;
     color: ${({ theme }) => theme.COLORS.LIGHT_100};
@@ -24,7 +33,7 @@ export const Container = styled.div`
 
     position: relative;
     font-size: 1.6rem;
-    left: 8.4rem;
+    left: 110px;
     top: 14px;
     transition: all 0.2s;
 
@@ -35,22 +44,34 @@ export const Container = styled.div`
 
   > img {
     border-radius: 50%;
-    width: 5.2rem;
+    width: 70px;
+    height: 70px;
     margin: 0 auto;
   }
 
   > .title {
-    font-size: 0.8rem;
-
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1.2rem;
+    font-weight: 300;
     font-family: Poppins;
     padding-top: 0.56rem;
+
+    transition: all 0.2s;
+    &:hover {
+      transform: scale(1.05);
+
+      cursor: pointer;
+    }
   }
 
   > .value {
+    font-size: 1rem;
     font-family: Roboto;
     font-weight: 300;
     color: ${({ theme }) => theme.COLORS.BLUE_100};
-    padding-top: 0.56rem;
+    padding-top: 0.5rem;
   }
   > .AddFood {
     .quantidade {
@@ -88,19 +109,22 @@ export const Container = styled.div`
   }
 
   @media (min-width: 768px) {
-    padding: 24px;
+    padding: 16px;
     padding-top: 0;
     gap: 15px;
-    width: 250px;
+    width: 235px;
+    height: 410px;
+    box-sizing: border-box;
     .like,
     .edit {
       font-size: 32px;
-      left: 190px;
+      left: 180px;
       top: 25px;
     }
 
     img {
       width: 140px;
+      height: 140px;
     }
 
     .title {
@@ -144,6 +168,7 @@ export const Container = styled.div`
     padding: 24px;
     gap: 15px;
     width: 300px;
+    height: 500px;
     .like,
     .edit {
       font-size: 34px;
@@ -153,6 +178,7 @@ export const Container = styled.div`
 
     img {
       width: 176px;
+      height: 176px;
     }
 
     .title {

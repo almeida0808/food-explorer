@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 export const Container = styled.button`
-  background-color: ${({ theme }) => theme.COLORS.RED_300};
+  background-color: ${({ theme, disabled }) =>
+    disabled ? theme.COLORS.RED_100 : theme.COLORS.RED_300};
   border: none;
   border-radius: 5px;
   display: flex;

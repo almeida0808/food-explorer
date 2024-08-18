@@ -5,11 +5,15 @@ import { Container } from "./styles";
 import { MagnifyingGlass} from "@phosphor-icons/react";
 import { useMediaQuery } from "react-responsive";
 import { useAuth } from "../../hooks/auth";
+import { Link, useNavigate } from "react-router-dom";
 
-export function Menu({ isAdmin, ...rest }) {
+export function Menu({onSearch, isAdmin, ...rest }) {
   const isDesktop = useMediaQuery({ minWidth: 1024 });
 
   const [menuIsOpen, setMenuIsOpen] = useState(false);
+const [search , setSearch] = useState("")
+
+  const navigate = useNavigate();
 
   const HandleToglleMenu = () => {
     setMenuIsOpen((prevState) => !prevState);
@@ -20,6 +24,18 @@ export function Menu({ isAdmin, ...rest }) {
 function handleSignOut(){
   signOut()
 }
+
+function handleNewPrato(){
+  navigate('/new')
+  setMenuIsOpen(false)
+}
+
+  
+function handleInputChange(e){
+  const newSearch = e.target.value
+  setSearch(newSearch)
+  onSearch(search)
+}
   return (
     <Container {...rest}>
       <Header
@@ -27,6 +43,7 @@ function handleSignOut(){
         isAdmin={isAdmin}
         menuIsOpen={menuIsOpen}
         HandleToglleMenu={HandleToglleMenu}
+        onChange={onSearch}
       />
 
       {!isDesktop && (
@@ -37,13 +54,14 @@ function handleSignOut(){
               <input
                 type="text"
                 placeholder="Busque por pratos ou ingredientes"
+                onChange={handleInputChange}
               />
             </div>
 
             <ul>
               {isAdmin && (
-                <button>
-                  <a>Novo prato</a>
+                <button  onClick={handleNewPrato}>
+                  <a >Novo prato</a>
                 </button>
               )}
               <button onClick={handleSignOut}>

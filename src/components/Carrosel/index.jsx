@@ -1,125 +1,43 @@
 import { Container } from "./styles";
-import { CardFood } from "../Card-food";
-import maracuja from "../../assets/maracuja.png";
 import { useMediaQuery } from "react-responsive";
-import { CaretLeft, CaretRight } from "@phosphor-icons/react";
-import { useRef } from "react";
+import { Navigation, Pagination, A11y } from "swiper/modules";
 
-export function CarrosselFood({ title, like = false, isAdmin, ...rest }) {
-  const isDesktop = useMediaQuery({ minWidth: 768 }); // verifica se tem tamanho de desktop
-  const carrosel = useRef(null);
+import { Swiper } from "swiper/react";
 
-  const handleLeftClick = (e) => {
-    e.preventDefault();
-    console.log(carrosel.current.offsetWidth);
-    carrosel.current.scrollLeft -= 350;
-  };
-  const handleRightClick = (e) => {
-    e.preventDefault();
-    carrosel.current.scrollLeft += 350;
-  };
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+
+export function CarrosselFood({
+  title,
+  children,
+  like = false,
+  DisheCategory,
+  isAdmin,
+  ...rest
+}) {
+  const isSmallMobile = useMediaQuery({ minWidth: 300, maxWidth: 374 });
+  const isMobile = useMediaQuery({ minWidth: 375, maxWidth: 574 });
+  const isTablet = useMediaQuery({ minWidth: 575, maxWidth: 1299 }); // Intervalo para tablets
+  const isDesktop = useMediaQuery({ minWidth: 1300, maxWidth:1699 });
+  const isLargeDesktop = useMediaQuery({ minWidth: 1700 });
 
   return (
     <Container className="carrosel">
       <h2>{title}</h2>
-
-      <div className="PreviewFoods">
-        {isDesktop && (
-          <div className="arrows">
-            <div className="left">
-              <button onClick={handleLeftClick}>{<CaretLeft />}</button>
-            </div>
-            <div className="right">
-              <button onClick={handleRightClick}>{<CaretRight />}</button>
-            </div>
-          </div>
-        )}
-        <section className="cards" ref={carrosel}>
-          {/* esse são os cards dos produtods mas pode ter quantos quiser, provavelmente você vai pega=los de um banco de dados */}
-         
-          <CardFood
-            title={"Suco de Maracujá"}
-            like={like}
-            isAdmin={isAdmin}
-            value={"19,90"}
-            imageUrl="https://s3-alpha-sig.figma.com/img/2a3a/f2da/858bcacaf0fdef44b4e289c158179e28?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=J1AFsKIs0nsPxInM5htX71nPs8KSTDe7t11~d9bBKnuWdK0PVBY5RcSDX2uD9rsNYKXpqw9-twHFmSbwq~QxVtgC9SGLBPO5ui5Og6kd2d3ib0xXNnnqF~qtXjTYj5trL-hyPXmPFLDleBpSLckxlpPqiuVVxwqBQ3BABFiR0lO9F9Ed0Si9KUPMwNr84X-4kRxDm46E3j7PW~O5Xs1BmgycR~OCy3D5ECQFv60ytAvXMfHetfGNj5XT5ScQtb2zk4jSn8AS7Xy3P1WeInuJAAK83FL1YbgtGJPjrFkPKmtTxETPnZdD2tFQEC9g4Avnk7u12xc3RFWJZ57KNvq2jg__"
-          />
-          <CardFood
-            title={"Suco de Maracujá"}
-            like={like}
-            isAdmin={isAdmin}
-            value={"19,90"}
-            imageUrl="https://s3-alpha-sig.figma.com/img/3963/9111/6d672c4f830cbb8c6c5536ade350b379?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Rk5ljBezCQcvB7T0CktfqeS-1Qt5PMR0h-w6KwW9EKqF75lJutMJaucIw5BSWngtcCXHRp6DD7fMTWcU3IDQ4Xg9Ua9ehuK2uLoTzGJ-vbhWaUwwfkfo5uQJhGS2LlOGtbM5jlhusSiwn~1vRyN-GiQu-aG1NPJVeXawxizd5jDdpYMVOU9X5p2bMzztsWlQRortiXAad~J06RY4-WCippyz9Q7GF~oGx0nyGpDB5A5sseiCpIPD2hF-wD5oAgM5TrMg0ONipKLpuZyapcKJWkWxp5xfCrZWnL8AslrbYzzb1-grVAA8Br1XsJNtx0UrypKvx7XzHq6G9i2u7hdovA__"
-          />{" "}
-          <CardFood
-            title={"Suco de Maracujá"}
-            like={like}
-            isAdmin={isAdmin}
-            value={"19,90"}
-            imageUrl={maracuja}
-          /> <CardFood
-          title={"Suco de Maracujá"}
-          like={like}
-          isAdmin={isAdmin}
-          value={"19,90"}
-          imageUrl="https://s3-alpha-sig.figma.com/img/2a3a/f2da/858bcacaf0fdef44b4e289c158179e28?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=J1AFsKIs0nsPxInM5htX71nPs8KSTDe7t11~d9bBKnuWdK0PVBY5RcSDX2uD9rsNYKXpqw9-twHFmSbwq~QxVtgC9SGLBPO5ui5Og6kd2d3ib0xXNnnqF~qtXjTYj5trL-hyPXmPFLDleBpSLckxlpPqiuVVxwqBQ3BABFiR0lO9F9Ed0Si9KUPMwNr84X-4kRxDm46E3j7PW~O5Xs1BmgycR~OCy3D5ECQFv60ytAvXMfHetfGNj5XT5ScQtb2zk4jSn8AS7Xy3P1WeInuJAAK83FL1YbgtGJPjrFkPKmtTxETPnZdD2tFQEC9g4Avnk7u12xc3RFWJZ57KNvq2jg__"
-        />
-        <CardFood
-          title={"Suco de Maracujá"}
-          like={like}
-          isAdmin={isAdmin}
-          value={"19,90"}
-          imageUrl="https://s3-alpha-sig.figma.com/img/3963/9111/6d672c4f830cbb8c6c5536ade350b379?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Rk5ljBezCQcvB7T0CktfqeS-1Qt5PMR0h-w6KwW9EKqF75lJutMJaucIw5BSWngtcCXHRp6DD7fMTWcU3IDQ4Xg9Ua9ehuK2uLoTzGJ-vbhWaUwwfkfo5uQJhGS2LlOGtbM5jlhusSiwn~1vRyN-GiQu-aG1NPJVeXawxizd5jDdpYMVOU9X5p2bMzztsWlQRortiXAad~J06RY4-WCippyz9Q7GF~oGx0nyGpDB5A5sseiCpIPD2hF-wD5oAgM5TrMg0ONipKLpuZyapcKJWkWxp5xfCrZWnL8AslrbYzzb1-grVAA8Br1XsJNtx0UrypKvx7XzHq6G9i2u7hdovA__"
-        />{" "}
-        <CardFood
-          title={"Suco de Maracujá"}
-          like={like}
-          isAdmin={isAdmin}
-          value={"19,90"}
-          imageUrl={maracuja}
-        /> <CardFood
-        title={"Suco de Maracujá"}
-        like={like}
-        isAdmin={isAdmin}
-        value={"19,90"}
-        imageUrl="https://s3-alpha-sig.figma.com/img/2a3a/f2da/858bcacaf0fdef44b4e289c158179e28?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=J1AFsKIs0nsPxInM5htX71nPs8KSTDe7t11~d9bBKnuWdK0PVBY5RcSDX2uD9rsNYKXpqw9-twHFmSbwq~QxVtgC9SGLBPO5ui5Og6kd2d3ib0xXNnnqF~qtXjTYj5trL-hyPXmPFLDleBpSLckxlpPqiuVVxwqBQ3BABFiR0lO9F9Ed0Si9KUPMwNr84X-4kRxDm46E3j7PW~O5Xs1BmgycR~OCy3D5ECQFv60ytAvXMfHetfGNj5XT5ScQtb2zk4jSn8AS7Xy3P1WeInuJAAK83FL1YbgtGJPjrFkPKmtTxETPnZdD2tFQEC9g4Avnk7u12xc3RFWJZ57KNvq2jg__"
-      />
-      <CardFood
-        title={"Suco de Maracujá"}
-        like={like}
-        isAdmin={isAdmin}
-        value={"19,90"}
-        imageUrl="https://s3-alpha-sig.figma.com/img/3963/9111/6d672c4f830cbb8c6c5536ade350b379?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Rk5ljBezCQcvB7T0CktfqeS-1Qt5PMR0h-w6KwW9EKqF75lJutMJaucIw5BSWngtcCXHRp6DD7fMTWcU3IDQ4Xg9Ua9ehuK2uLoTzGJ-vbhWaUwwfkfo5uQJhGS2LlOGtbM5jlhusSiwn~1vRyN-GiQu-aG1NPJVeXawxizd5jDdpYMVOU9X5p2bMzztsWlQRortiXAad~J06RY4-WCippyz9Q7GF~oGx0nyGpDB5A5sseiCpIPD2hF-wD5oAgM5TrMg0ONipKLpuZyapcKJWkWxp5xfCrZWnL8AslrbYzzb1-grVAA8Br1XsJNtx0UrypKvx7XzHq6G9i2u7hdovA__"
-      />{" "}
-      <CardFood
-        title={"Suco de Maracujá"}
-        like={like}
-        isAdmin={isAdmin}
-        value={"19,90"}
-        imageUrl={maracuja}
-      /> <CardFood
-      title={"Suco de Maracujá"}
-      like={like}
-      isAdmin={isAdmin}
-      value={"19,90"}
-      imageUrl="https://s3-alpha-sig.figma.com/img/2a3a/f2da/858bcacaf0fdef44b4e289c158179e28?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=J1AFsKIs0nsPxInM5htX71nPs8KSTDe7t11~d9bBKnuWdK0PVBY5RcSDX2uD9rsNYKXpqw9-twHFmSbwq~QxVtgC9SGLBPO5ui5Og6kd2d3ib0xXNnnqF~qtXjTYj5trL-hyPXmPFLDleBpSLckxlpPqiuVVxwqBQ3BABFiR0lO9F9Ed0Si9KUPMwNr84X-4kRxDm46E3j7PW~O5Xs1BmgycR~OCy3D5ECQFv60ytAvXMfHetfGNj5XT5ScQtb2zk4jSn8AS7Xy3P1WeInuJAAK83FL1YbgtGJPjrFkPKmtTxETPnZdD2tFQEC9g4Avnk7u12xc3RFWJZ57KNvq2jg__"
-    />
-    <CardFood
-      title={"Suco de Maracujá"}
-      like={like}
-      isAdmin={isAdmin}
-      value={"19,90"}
-      imageUrl="https://s3-alpha-sig.figma.com/img/3963/9111/6d672c4f830cbb8c6c5536ade350b379?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Rk5ljBezCQcvB7T0CktfqeS-1Qt5PMR0h-w6KwW9EKqF75lJutMJaucIw5BSWngtcCXHRp6DD7fMTWcU3IDQ4Xg9Ua9ehuK2uLoTzGJ-vbhWaUwwfkfo5uQJhGS2LlOGtbM5jlhusSiwn~1vRyN-GiQu-aG1NPJVeXawxizd5jDdpYMVOU9X5p2bMzztsWlQRortiXAad~J06RY4-WCippyz9Q7GF~oGx0nyGpDB5A5sseiCpIPD2hF-wD5oAgM5TrMg0ONipKLpuZyapcKJWkWxp5xfCrZWnL8AslrbYzzb1-grVAA8Br1XsJNtx0UrypKvx7XzHq6G9i2u7hdovA__"
-    />{" "}
-    <CardFood
-      title={"Suco de Maracujá"}
-      like={like}
-      isAdmin={isAdmin}
-      value={"19,90"}
-      imageUrl={maracuja}
-    />
-        </section>
-      </div>
+      <Swiper
+        modules={[Navigation, Pagination, A11y]}
+        spaceBetween={0}
+        loop={true}
+        slidesPerView={
+          isSmallMobile ? 1.8 : isMobile ? 2 : isTablet ? 3 : isDesktop ? 4 : isLargeDesktop ? 5 : 1 // Caso não se enquadre em nenhum dos casos acima, exibe 1 slide
+        }
+        navigation={isTablet || isDesktop ||isLargeDesktop} // Ativa navegação para tablets e desktops
+      >
+        {children}
+      </Swiper>
     </Container>
   );
 }
