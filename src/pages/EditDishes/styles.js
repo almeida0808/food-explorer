@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   height: 100vh;
-  width: 90%;
   background-color: ${({ theme }) => theme.COLORS.DARK_400};
 
   display: grid;
@@ -16,9 +15,8 @@ export const Container = styled.div`
 `;
 
 export const Main = styled.main`
-  max-width: 80%;
+  width: 90%;
   margin: 0 auto;
-
   grid-area: main;
   > a:first-child {
     text-decoration: none;
@@ -83,7 +81,6 @@ export const Main = styled.main`
         flex-direction: column;
         gap: 8px;
         padding-bottom: 2rem;
-        width: 100%;
         div {
           background-color: ${({ theme }) => theme.COLORS.DARK_900};
           font-family: Poppins;
@@ -94,7 +91,6 @@ export const Main = styled.main`
           justify-content: center;
           gap: 8px;
           border-radius: 5px;
-
           height: 46px;
 
           svg {
@@ -159,9 +155,7 @@ export const Main = styled.main`
         display: flex;
         flex-direction: column;
         gap: 8px;
-
         margin-bottom: 2rem;
-        width: 100%;
 
         #ingredientes {
           background-color: ${({ theme }) => theme.COLORS.DARK_900};
@@ -174,7 +168,6 @@ export const Main = styled.main`
           flex-wrap: nowrap;
           overflow: scroll;
           height: max-content;
-          width: 100%;
 
           &::-webkit-scrollbar {
             height: 5px;
@@ -240,18 +233,17 @@ export const Main = styled.main`
 
       .formPartOne {
         .imgFood {
-          width: max-content;
+          width: 100%;
           div {
             height: 44px;
           }
         }
         .name {
-          width: 300px;
           font-size: 16px;
         }
 
         .foodCategory {
-          width: 130px;
+          width: 230px;
           select {
             font-size: 16px;
           }
@@ -260,8 +252,11 @@ export const Main = styled.main`
 
       .formPartTwo {
         .tags {
+          width: 100%;
+
           #ingredientes {
-            width: 580px;
+            flex-wrap: wrap;
+            overflow: auto;
           }
         }
 

@@ -37,8 +37,10 @@ export function EditDishes({ ...rest }) {
   const [category, setCategory] = useState();
   const [description, setDescription] = useState();
 
-  const [image, setImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
   const [imageFile, setImageFile] = useState(null);
+
+
     const [ingredientes, setIngredientes] = useState([]);
   const [newIngrediente, setNewIngrediente] = useState("");
 
@@ -47,13 +49,16 @@ export function EditDishes({ ...rest }) {
     async function fetchDish() {
       try {
         const response = await api.get(`/pratos/${params.id}`);
-        console.log(response.data);
         setCategory(response.data.category);
         setDescription(response.data.description);
         setValue(response.data.value);
         setName(response.data.name);
         setImageFile(response.data.imageUrl);
+        setImagePreview(`${api.defaults.baseURL}/files/${response.data.imageUrl}`
+      )
         setIngredientes(response.data.ingredientes.map(ingrediente=> ingrediente.name));
+
+
         console.log(ingredientes)
       } catch (error) {
         alert(`Erro ao carregar nota: (${error.message})`);
@@ -66,13 +71,11 @@ export function EditDishes({ ...rest }) {
   }, [params.id]);
 
 
-let imagePreview = `${api.defaults.baseURL}/files/${imageFile}`;
-
 function handleNewImage(event) {
   const file = event.target.files[0];
   setImageFile(file);
 
-  imagePreview = URL.createObjectURL(file);
+  setImagePreview(URL.createObjectURL(file))
   setImage(imagePreview);
 }
 
