@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   height: 100vh;
-  width: 100%;
+  width: 90%;
   background-color: ${({ theme }) => theme.COLORS.DARK_400};
 
   display: grid;
@@ -16,7 +16,7 @@ export const Container = styled.div`
 `;
 
 export const Main = styled.main`
-  max-width: 90%;
+  max-width: 80%;
   margin: 0 auto;
 
   grid-area: main;
@@ -174,6 +174,7 @@ export const Main = styled.main`
           flex-wrap: nowrap;
           overflow: scroll;
           height: max-content;
+          width: 100%;
 
           &::-webkit-scrollbar {
             height: 5px;

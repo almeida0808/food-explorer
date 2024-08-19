@@ -52,7 +52,7 @@ export function EditDishes({ ...rest }) {
         setDescription(response.data.description);
         setValue(response.data.value);
         setName(response.data.name);
-        setImage(response.data.imageUrl);
+        setImageFile(response.data.imageUrl);
         setIngredientes(response.data.ingredientes.map(ingrediente=> ingrediente.name));
         console.log(ingredientes)
       } catch (error) {
@@ -66,7 +66,7 @@ export function EditDishes({ ...rest }) {
   }, [params.id]);
 
 
-let imagePreview = `${api.defaults.baseURL}/files/${imageUrl}`;
+let imagePreview = `${api.defaults.baseURL}/files/${imageFile}`;
 
 function handleNewImage(event) {
   const file = event.target.files[0];
@@ -108,12 +108,10 @@ function handleRemoveTag(deleted){
         <form>
           <h1>Editar prato</h1>
 
-          {imageUrl && (
             <div className="imgPreview">
               <span>Imagem Selecionada</span>
-              <img src={image} alt="" />
+              <img src={imagePreview} alt="" />
             </div>
-          )}
 
           <div className="formPartOne">
             <label className="imgFood" htmlFor="ImgFood">
