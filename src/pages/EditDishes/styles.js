@@ -15,22 +15,11 @@ export const Container = styled.div`
 `;
 
 export const Main = styled.main`
-  width: 90%;
   margin: 0 auto;
   grid-area: main;
-  > a:first-child {
-    text-decoration: none;
-    color: ${({ theme }) => theme.COLORS.LIGHT_100};
+  min-width: 90%;
+  max-width: 90%;
 
-    display: flex;
-    gap: 0.6rem;
-    align-items: center;
-
-    margin: 2.2rem 15rem 1rem 0;
-
-    font-size: 1rem;
-    font-weight: 400;
-  }
   .imgPreview {
     display: flex;
     flex-direction: column;
@@ -44,8 +33,8 @@ export const Main = styled.main`
     }
     img {
       border: solid 1px ${({ theme }) => theme.COLORS.LIGHT_400};
-      width: 100px;
-      height: 100px;
+      width: 70px;
+      height: 70px;
       border-radius: 50%;
       object-fit: cover;
       overflow: hidden;
@@ -54,6 +43,20 @@ export const Main = styled.main`
     }
   }
   form {
+    > a:first-child {
+      text-decoration: none;
+      color: ${({ theme }) => theme.COLORS.LIGHT_100};
+
+      display: flex;
+      gap: 0.6rem;
+      align-items: center;
+
+      margin: 2.2rem 15rem 1rem 0;
+
+      font-size: 1rem;
+      font-weight: 400;
+    }
+    width: 100%;
     h1 {
       color: ${({ theme }) => theme.COLORS.LIGHT_100};
       font-family: Poppins;
@@ -71,6 +74,12 @@ export const Main = styled.main`
     input {
       font-family: "Roboto", sans-serif;
       font-weight: 300;
+    }
+    .imgPreview {
+      img {
+        width: 100px;
+        height: 100px;
+      }
     }
 
     > .formPartOne {
@@ -156,6 +165,7 @@ export const Main = styled.main`
         flex-direction: column;
         gap: 8px;
         margin-bottom: 2rem;
+        width: 100%;
 
         #ingredientes {
           background-color: ${({ theme }) => theme.COLORS.DARK_900};
@@ -165,25 +175,9 @@ export const Main = styled.main`
           justify-content: initial;
           align-items: center;
           gap: 8px;
-          flex-wrap: nowrap;
-          overflow: scroll;
           height: max-content;
-
-          &::-webkit-scrollbar {
-            height: 5px;
-            width: 100%;
-          }
-          &::-webkit-scrollbar-track {
-            background-color: ${({ theme }) => theme.COLORS.DARK_700};
-          }
-
-          &::-webkit-scrollbar-thumb {
-            background-color: ${({ theme }) => theme.COLORS.LIGHT_600};
-          }
-
-          span {
-            background-color: ${({ theme }) => theme.COLORS.LIGHT_600};
-          }
+          flex-wrap: wrap;
+          min-width: 100%;
         }
       }
     }
@@ -224,6 +218,9 @@ export const Main = styled.main`
     }
 
     @media (min-width: 1024px) {
+      max-width: 1400px;
+      margin: 0 auto;
+
       .formPartOne,
       .formPartTwo {
         display: flex;
@@ -234,6 +231,7 @@ export const Main = styled.main`
       .formPartOne {
         .imgFood {
           width: 100%;
+
           div {
             height: 44px;
           }
@@ -252,14 +250,42 @@ export const Main = styled.main`
 
       .formPartTwo {
         .tags {
-          width: 100%;
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+
+          margin-bottom: 2rem;
 
           #ingredientes {
-            flex-wrap: wrap;
-            overflow: auto;
+            background-color: ${({ theme }) => theme.COLORS.DARK_900};
+            border-radius: 5px;
+            padding: 10px 12px;
+            display: flex;
+            justify-content: initial;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: nowrap;
+            overflow: scroll;
+            height: max-content;
+            width: 590px;
+
+            &::-webkit-scrollbar {
+              height: 5px;
+              width: 100%;
+            }
+            &::-webkit-scrollbar-track {
+              background-color: ${({ theme }) => theme.COLORS.DARK_700};
+            }
+
+            &::-webkit-scrollbar-thumb {
+              background-color: ${({ theme }) => theme.COLORS.LIGHT_600};
+            }
+
+            span {
+              background-color: ${({ theme }) => theme.COLORS.LIGHT_600};
+            }
           }
         }
-
         .preço {
           width: 130px;
 

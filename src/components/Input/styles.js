@@ -15,7 +15,7 @@ export const Container = styled.div`
     background-color: ${({ theme }) => theme.COLORS.DARK_900};
     border: none;
     border-radius: 5px;
-
+    font-size: 1rem;
     padding: 0.87rem 0.75rem;
 
     color: ${({ theme }) => theme.COLORS.LIGHT_100};

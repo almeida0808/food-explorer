@@ -20,7 +20,7 @@ export const Container = styled.div`
     border: none;
     color: ${({ theme }) => theme.COLORS.LIGHT_100};
     outline: none;
-    max-width: 70px;
+    max-width: 75px;
 
     &::placeholder {
       font-family: Roboto;

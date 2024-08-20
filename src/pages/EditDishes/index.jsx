@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-
 import { Container, Main } from "./styles";
 import { Footer } from "../../components/Footer";
 import { Input } from "../../components/Input";
@@ -12,7 +11,6 @@ import {
   CaretDown,
   CaretUp,
 } from "@phosphor-icons/react";
-
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { api } from "../../services/api";
 import { useAuth } from "../../hooks/auth";
@@ -22,28 +20,19 @@ export function EditDishes({ ...rest }) {
   const [isFormValid, setIsFormValid] = useState(false);
 
   const params = useParams();
-
   const { user } = useAuth();
   const navigate = useNavigate();
-
   const [role, setRole] = useState(user.role);
-  const isAdmin = role == "admin";
+  const isAdmin = role === "admin";
 
-  const HandleSelectIsOpen = () => {
-    setSelectIsOpen((prevState) => !prevState);
-  };
-  const [value, setValue] = useState();
-  const [name, setName] = useState();
-  const [category, setCategory] = useState();
-  const [description, setDescription] = useState();
-
+  const [value, setValue] = useState("");
+  const [name, setName] = useState("");
+  const [category, setCategory] = useState("");
+  const [description, setDescription] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
   const [imageFile, setImageFile] = useState(null);
-
-
-    const [ingredientes, setIngredientes] = useState([]);
+  const [ingredientes, setIngredientes] = useState([]);
   const [newIngrediente, setNewIngrediente] = useState("");
-
 
   useEffect(() => {
     async function fetchDish() {
@@ -54,67 +43,110 @@ export function EditDishes({ ...rest }) {
         setValue(response.data.value);
         setName(response.data.name);
         setImageFile(response.data.imageUrl);
-        setImagePreview(`${api.defaults.baseURL}/files/${response.data.imageUrl}`
-      )
-        setIngredientes(response.data.ingredientes.map(ingrediente=> ingrediente.name));
+        setImagePreview(
+          `${api.defaults.baseURL}/files/${response.data.imageUrl}`
+        );
+        setIngredientes(
+          response.data.ingredientes.map((ingrediente) => ingrediente.name)
+        );
 
-
-        console.log(ingredientes)
+        console.log(response.data.ingredientes.map((ingrediente) => ingrediente.name));
       } catch (error) {
         alert(`Erro ao carregar nota: (${error.message})`);
-
         navigate("/");
       }
     }
 
     fetchDish();
-  }, [params.id]);
+  }, [params.id, navigate]);
 
-
-function handleNewImage(event) {
-  const file = event.target.files[0];
-  setImageFile(file);
-
-  setImagePreview(URL.createObjectURL(file))
-  setImage(imagePreview);
-}
+  function handleNewImage(event) {
+    const file = event.target.files[0];
+    setImageFile(file);
+    setImagePreview(URL.createObjectURL(file));
+  }
 
   function handleNewTag() {
-    if (!newIngrediente.trim()) {
+    const ingredienteTrimmed = newIngrediente.trim();
+
+    if (!ingredienteTrimmed) {
       alert("Por favor, adicione um ingrediente válido.");
       return;
     }
-    setIngredientes((prevState) => [...prevState, newIngrediente]);
-    setNewIngrediente("");
+
+    setIngredientes((prevState) => {
+      if (prevState.includes(ingredienteTrimmed)) {
+        alert("O ingrediente já existe na lista.");
+        return prevState;
+      }
+      return [...prevState, ingredienteTrimmed];
+    });
+
+    setNewIngrediente(""); // Limpa o campo de entrada
+  }
+
+  function handleRemoveTag(deleted) {
+    const confirmDeleted = confirm("Deseja deletar este ingrediente?");
+    if (confirmDeleted) {
+      setIngredientes((prevState) =>
+        prevState.filter((tag) => tag !== deleted)
+      );
+    }
+  }
+
+  
+  async function handleNewDishe() {
+
+
+    const fileForm = new FormData();
+    fileForm.append("image", imageFile);
+    fileForm.append("name", name);
+    fileForm.append("description", description);
+    fileForm.append("category", category);
+    fileForm.append("value", value);
+    fileForm.append("ingredientes",ingredientes); // Converte array para string se necessário
+    console.log(fileForm)
+    try {
+      // Requisição à API para criar um novo prato
+      await api.put(`/pratos/${params.id}`, fileForm);
+    
+
+      // Mensagem de sucesso
+      alert("Prato atualizado com sucesso!");
+      navigate("/");
+    } catch (error) {
+      // Tratamento de erros da API
+      if (error.response && error.response.data) {
+        // Exibe a mensagem de erro retornada pelo backend
+        alert(`Erro: ${error.response.data.message}`);
+      } else {
+        // Erro genérico (ex: problemas de rede)
+        alert("Erro ao atualizar o prato. Tente novamente mais tarde.");
+      }
+    }
+    try {
+      const response = await api.put(`/pratos/${params.id}`, fileForm);
+      console.log(response.data); // Adicione um log para verificar a resposta
+    } catch (error) {
+      console.error(error.response ? error.response.data : error.message);
+    }
     
   }
-
-function handleRemoveTag(deleted){
-  const confirmDeleted = confirm("Deseja deletar este ingrediente?")
-  if(
-    confirmDeleted
-  ){
-
-    setIngredientes((prevState) => prevState.filter((tag) => tag !== deleted));
-  }
-  return
-
-}
 
   return (
     <Container {...rest}>
       <Menu isAdmin={isAdmin} />
       <Main>
+        <form>
         <Link to="/">
           <CaretLeft /> voltar
         </Link>
-        <form>
           <h1>Editar prato</h1>
 
-            <div className="imgPreview">
-              <span>Imagem Selecionada</span>
-              <img src={imagePreview} alt="" />
-            </div>
+          <div className="imgPreview">
+            <span>Imagem Selecionada</span>
+            <img src={imagePreview} alt="" />
+          </div>
 
           <div className="formPartOne">
             <label className="imgFood" htmlFor="ImgFood">
@@ -142,35 +174,15 @@ function handleRemoveTag(deleted){
               <label htmlFor="food-category">Categoria</label>
               <div className="selectWrapper">
                 <select
-                  onClick={HandleSelectIsOpen}
-                  onChange={(e) => {
-                    setCategory(e.target.value);
-                  }}
+                  onClick={() => setSelectIsOpen((prev) => !prev)}
+                  onChange={(e) => setCategory(e.target.value)}
                   onBlur={() => setSelectIsOpen(false)}
                   name="food-category"
                   id="food-category"
                 >
-                  {category === "refeição" ? (
-                    <>
-                      <option value="pratos">Refeição</option>
-                      <option value="sobremesa">Sobremesa</option>
-                      <option value="drink">Drink</option>
-                    </>
-                  ) : category === "sobremesa" ? (
-                    <>
-                      <option value="sobremesa">Sobremesa</option>
-                      <option value="pratos">Refeição</option>
-                      <option value="drink">Drink</option>
-                    </>
-                  ) : (
-                    category === "bebida" && (
-                      <>
-                        <option value="drink">Drink</option>
-                        <option value="pratos">Refeição</option>
-                        <option value="sobremesa">Sobremesa</option>
-                      </>
-                    )
-                  )}
+                  <option value="pratos">Refeição</option>
+                  <option value="sobremesa">Sobremesa</option>
+                  <option value="drink">Drink</option>
                 </select>
                 {!selectIsOpen ? (
                   <CaretUp className="icon focused" />
@@ -182,51 +194,48 @@ function handleRemoveTag(deleted){
           </div>
 
           <div className="formPartTwo">
-            <div className="tags">
-              <label htmlFor="ingredientes">Ingredientes</label>
-              <div id="ingredientes">
-                {ingredientes.map((ingrediente, index) => (
-                  <IngredienteItem
-                    key={String(index)}
-                    value={ingrediente}
-                    onClick={()=>handleRemoveTag(ingrediente)}
-                  />
-                ))}
-                <IngredienteItem
-                  isNew
-                  onChange={(e) => setNewIngrediente(e.target.value)}
-                  value={newIngrediente}
-                  onClick={handleNewTag}
-                />
-              </div>
-            </div>
+          <div className="tags">
+      <label htmlFor="ingredientes">Ingredientes</label>
+      <div id="ingredientes">
+        {ingredientes.map((ingrediente, index) => (
+          <IngredienteItem
+            key={String(index)}
+            value={ingrediente}
+            onClick={() => handleRemoveTag(ingrediente)}
+          />
+        ))}
+        <IngredienteItem
+          onChange={(e) => setNewIngrediente(e.target.value)}
+          value={newIngrediente}
+          onClick={handleNewTag}
 
+isNew
+          />
+      </div>
+    </div>
             <Input
               className="preço"
               title="Preço"
               value={value}
               type="number"
               placeholder="19,99"
-              onChange={(e) => {
-                setValue(e.target.value);
-              }}
+              onChange={(e) => setValue(e.target.value)}
             />
           </div>
 
           <div className="descrição">
-            <label for="description">Descrição</label>
+            <label htmlFor="description">Descrição</label>
             <textarea
+                      maxLength="200"
               value={description}
-              placeholder="Descreva seu prato ness campo"
+              placeholder="Descreva seu prato nesse campo"
               id="description"
-              onChange={(e) => {
-                setDescription(e.target.value);
-              }}
+              onChange={(e) => setDescription(e.target.value)}
             ></textarea>
           </div>
 
           <div className="buttons">
-            <Button title="Salvar Prato" disabled={isFormValid} />
+            <Button title="Salvar Prato" onClick={handleNewDishe} disabled={isFormValid} />
           </div>
         </form>
       </Main>

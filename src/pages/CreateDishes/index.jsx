@@ -68,6 +68,7 @@ setIsFormValid(false)
   }
 
   async function handleNewDishe() {
+
     // Verificação do campo name
     if (!name) {
       alert("Por favor, informe o nome do prato");
@@ -108,6 +109,7 @@ setIsFormValid(false)
     fileForm.append("category", category);
     fileForm.append("value", value);
     fileForm.append("ingredientes",ingredientes); // Converte array para string se necessário
+    console.log(fileForm)
     
     try {
       // Requisição à API para criar um novo prato
