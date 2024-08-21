@@ -29,7 +29,6 @@ export function Home({ ...rest }) {
     fetchDishes();
   }, [search]);
   
-  console.log(dishes);
   return (
     <Container>
       <Menu onSearch={handleSearchChange} isAdmin={isAdmin} />

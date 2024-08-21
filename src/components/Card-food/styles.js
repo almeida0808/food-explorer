@@ -4,11 +4,11 @@ export const Container = styled.div`
   color: ${({ theme }) => theme.COLORS.LIGHT_100};
 
   width: 150px;
-  height: 250px;
   display: flex;
+  height: ${(props) => (props.isAdmin ? "max-content" : "250px")};
   flex-direction: column;
   place-content: center;
-  padding: 16px;
+  padding: ${(props) => (props.isAdmin ? "8px" : "16px")};
 
   flex: none;
 
@@ -109,11 +109,11 @@ export const Container = styled.div`
   }
 
   @media (min-width: 768px) {
-    padding: 16px;
     padding-top: 0;
     gap: 15px;
     width: 235px;
-    height: 410px;
+    height: ${(props) => (props.isAdmin ? "max-content" : "410px")};
+
     box-sizing: border-box;
     .like,
     .edit {
@@ -165,10 +165,11 @@ export const Container = styled.div`
     }
   }
   @media (min-width: 1024px) {
-    padding: 24px;
-    gap: 15px;
+    padding: ${(props) => (props.isAdmin ? "12px" : "24px")};
+    height: ${(props) => (props.isAdmin ? "max-content" : "500px")};
     width: 300px;
-    height: 500px;
+
+    gap: 15px;
     .like,
     .edit {
       font-size: 34px;

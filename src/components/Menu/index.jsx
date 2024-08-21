@@ -7,7 +7,11 @@ import { useMediaQuery } from "react-responsive";
 import { useAuth } from "../../hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
 
-export function Menu({onSearch, isAdmin, ...rest }) {
+export function Menu({onSearch,  ...rest }) {
+  const { user } = useAuth();
+  const [role, setRole] = useState(user.role);
+  const isAdmin = role == "admin";
+
   const isDesktop = useMediaQuery({ minWidth: 1024 });
 
   const [menuIsOpen, setMenuIsOpen] = useState(false);

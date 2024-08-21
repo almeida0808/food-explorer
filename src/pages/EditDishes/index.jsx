@@ -49,7 +49,6 @@ export function EditDishes({ ...rest }) {
           response.data.ingredientes.map((ingrediente) => ingrediente.name)
         );
 
-        console.log(response.data.ingredientes.map((ingrediente) => ingrediente.name));
       } catch (error) {
         alert(`Erro ao carregar nota: (${error.message})`);
         navigate("/");
@@ -92,27 +91,32 @@ export function EditDishes({ ...rest }) {
       );
     }
   }
+  async function handleNewDishe(event) {
+    event.preventDefault(); // Evita o comportamento padrão do formulário
 
-  async function handleNewDishe() {
+    if (!name || !value || !category || !description || ingredientes.length === 0) {
+        alert("Por favor, preencha todos os campos e adicione pelo menos um ingrediente.");
+        return;
+    }
+
     const fileForm = new FormData();
-    
+
     if (imageFile) {
         fileForm.append("image", imageFile);
     }
-    
+
     fileForm.append("name", name);
     fileForm.append("description", description);
     fileForm.append("category", category);
     fileForm.append("value", value);
-    fileForm.append("ingredientes", ingredientes.join(",")); // Converte array para string
+    fileForm.append("ingredientes", ingredientes.join(",")); 
 
     try {
-        const response = await api.put(`/pratos/${params.id}`, fileForm, {
+        await api.put(`/pratos/${params.id}`, fileForm, {
             headers: {
-                'Content-Type': 'multipart/form-data'
+                "Content-Type": "multipart/form-data" // Importante para upload de arquivos
             }
         });
-
         alert("Prato atualizado com sucesso!");
         navigate("/");
     } catch (error) {
@@ -123,14 +127,15 @@ export function EditDishes({ ...rest }) {
         }
     }
 }
+
   return (
     <Container {...rest}>
       <Menu isAdmin={isAdmin} />
       <Main>
         <form>
-        <Link to="/">
-          <CaretLeft /> voltar
-        </Link>
+          <Link to="/">
+            <CaretLeft /> voltar
+          </Link>
           <h1>Editar prato</h1>
 
           <div className="imgPreview">
@@ -161,67 +166,42 @@ export function EditDishes({ ...rest }) {
               onChange={(e) => setName(e.target.value)}
             />
             <div className="foodCategory">
-              <label htmlFor="food-category">Categoria</label>
-              <div className="selectWrapper">
-                <select
-                  onClick={() => setSelectIsOpen((prev) => !prev)}
-                  onChange={(e) => setCategory(e.target.value)}
-                  onBlur={() => setSelectIsOpen(false)}
-                  name="food-category"
-                  id="food-category"
-                >
-                   
-                  {category === "refeição" ? (
-                    <>
-                      <option value="pratos">Refeição</option>
-                      <option value="sobremesa">Sobremesa</option>
-                      <option value="drink">Drink</option>
-                    </>
-                  ) : category === "sobremesa" ? (
-                    <>
-                      <option value="sobremesa">Sobremesa</option>
-                      <option value="pratos">Refeição</option>
-                      <option value="drink">Drink</option>
-                    </>
-                  ) : (
-                    category === "bebida" && (
-                      <>
-                        <option value="drink">Drink</option>
-                        <option value="pratos">Refeição</option>
-                        <option value="sobremesa">Sobremesa</option>
-                      </>
-                    )
-                  )}
-                </select>
-                {!selectIsOpen ? (
-                  <CaretUp className="icon focused" />
-                ) : (
-                  <CaretDown className="icon default" />
-                )}
-              </div>
-            </div>
+  <label htmlFor="food-category">Categoria</label>
+  <div className="selectWrapper">
+    <select
+      onChange={(e) => setCategory(e.target.value)}
+      name="food-category"
+      id="food-category"
+      value={category} // Define o valor selecionado como o valor atual da categoria
+    >
+      <option value="refeição">Refeição</option>
+      <option value="sobremesa">Sobremesa</option>
+      <option value="bebida">Drink</option>
+    </select>
+  </div>
+</div>
+
           </div>
 
           <div className="formPartTwo">
-          <div className="tags">
-      <label htmlFor="ingredientes">Ingredientes</label>
-      <div id="ingredientes">
-        {ingredientes.map((ingrediente, index) => (
-          <IngredienteItem
-            key={String(index)}
-            value={ingrediente}
-            onClick={() => handleRemoveTag(ingrediente)}
-          />
-        ))}
-        <IngredienteItem
-          onChange={(e) => setNewIngrediente(e.target.value)}
-          value={newIngrediente}
-          onClick={handleNewTag}
-
-isNew
-          />
-      </div>
-    </div>
+            <div className="tags">
+              <label htmlFor="ingredientes">Ingredientes</label>
+              <div id="ingredientes">
+                {ingredientes.map((ingrediente, index) => (
+                  <IngredienteItem
+                    key={String(index)}
+                    value={ingrediente}
+                    onClick={() => handleRemoveTag(ingrediente)}
+                  />
+                ))}
+                <IngredienteItem
+                  onChange={(e) => setNewIngrediente(e.target.value)}
+                  value={newIngrediente}
+                  onClick={handleNewTag}
+                  isNew
+                />
+              </div>
+            </div>
             <Input
               className="preço"
               title="Preço"
@@ -235,7 +215,7 @@ isNew
           <div className="descrição">
             <label htmlFor="description">Descrição</label>
             <textarea
-                      maxLength="200"
+              maxLength="200"
               value={description}
               placeholder="Descreva seu prato nesse campo"
               id="description"
@@ -244,7 +224,11 @@ isNew
           </div>
 
           <div className="buttons">
-            <Button title="Salvar Prato" onClick={handleNewDishe} disabled={isFormValid} />
+            <Button
+              title="Salvar Prato"
+              onClick={handleNewDishe}
+              disabled={isFormValid}
+            />
           </div>
         </form>
       </Main>

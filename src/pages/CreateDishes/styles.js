@@ -44,16 +44,18 @@ export const Main = styled.main`
   }
   form {
     > a:first-child {
+      font-family: "Poppins", sans-serif;
       text-decoration: none;
-      color: ${({ theme }) => theme.COLORS.LIGHT_100};
-
+      background: none;
+      border: none;
+      color: ${({ theme }) => theme.COLORS.LIGHT_300};
       display: flex;
       gap: 0.6rem;
       align-items: center;
-
+      font-size: 1rem;
+      font-weight: 400;
       margin: 2.2rem 15rem 1rem 0;
 
-      font-size: 1rem;
       font-weight: 400;
     }
     width: 100%;
@@ -118,6 +120,8 @@ export const Main = styled.main`
         select {
           font-family: "Roboto", sans-serif;
           font-weight: 300;
+          font-size: 1rem;
+
           color: ${({ theme }) => theme.COLORS.LIGHT_400};
 
           width: 100%;

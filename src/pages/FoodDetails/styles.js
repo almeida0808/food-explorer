@@ -23,13 +23,33 @@ export const Main = styled.main`
   align-items: center;
   font-family: Poppins;
   color: ${({ theme }) => theme.COLORS.LIGHT_100};
+  > .voltar {
+    a:first-child {
+      margin: 25px 0;
+      text-decoration: none;
+      background: none;
+      border: none;
+      color: ${({ theme }) => theme.COLORS.LIGHT_300};
+      display: flex;
+      gap: 0.6rem;
+      align-items: center;
+      font-size: 1.3rem;
+      font-weight: 400;
+    }
+
+    width: 100%;
+  }
   .food {
     display: flex;
     flex-direction: column;
     img {
       width: 200px;
+      height: 200px;
+      object-fit: cover;
+
       justify-content: center;
       margin: 0 auto;
+      border-radius: 50%;
     }
   }
   .details {
@@ -79,7 +99,7 @@ export const Main = styled.main`
       }
       .buttonRed {
         margin: 0;
-        font-size: 0.8rem;
+        font-size: 0.9rem;
         font-weight: 300;
         padding: 9px 40px;
 
@@ -94,21 +114,6 @@ export const Main = styled.main`
       }
     }
   }
-  > .voltar {
-    margin-top: 24px;
-    button:first-child {
-      background: none;
-      border: none;
-      color: ${({ theme }) => theme.COLORS.LIGHT_100};
-      display: flex;
-      gap: 0.6rem;
-      align-items: center;
-      font-size: 1.5rem;
-      font-weight: 400;
-    }
-
-    width: 100%;
-  }
 
   .addFood {
     margin-top: 24px;
@@ -119,10 +124,8 @@ export const Main = styled.main`
 
   @media (min-width: 1024px) {
     .voltar {
-      margin: 60px 0 40px;
-      button:first-child {
-        font-weight: 600;
-      }
+      display: flex;
+      align-items: center;
     }
 
     .buttonBack {
@@ -139,6 +142,7 @@ export const Main = styled.main`
 
       img {
         width: 350px;
+        height: 350px;
       }
 
       .details {
