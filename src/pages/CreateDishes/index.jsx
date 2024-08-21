@@ -141,10 +141,10 @@ setIsFormValid(false)
     <Container {...rest}>
       <Menu isAdmin={isAdmin} />
       <Main>
+        <form>
         <Link to="/">
           <CaretLeft /> voltar
         </Link>
-        <form>
           <h1>Criar Prato</h1>
 
 {

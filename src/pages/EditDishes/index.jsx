@@ -42,7 +42,6 @@ export function EditDishes({ ...rest }) {
         setDescription(response.data.description);
         setValue(response.data.value);
         setName(response.data.name);
-        setImageFile(response.data.imageUrl);
         setImagePreview(
           `${api.defaults.baseURL}/files/${response.data.imageUrl}`
         );
@@ -94,45 +93,36 @@ export function EditDishes({ ...rest }) {
     }
   }
 
-  
   async function handleNewDishe() {
-
-
     const fileForm = new FormData();
-    fileForm.append("image", imageFile);
+    
+    if (imageFile) {
+        fileForm.append("image", imageFile);
+    }
+    
     fileForm.append("name", name);
     fileForm.append("description", description);
     fileForm.append("category", category);
     fileForm.append("value", value);
-    fileForm.append("ingredientes",ingredientes); // Converte array para string se necessário
-    console.log(fileForm)
-    try {
-      // Requisição à API para criar um novo prato
-      await api.put(`/pratos/${params.id}`, fileForm);
-    
+    fileForm.append("ingredientes", ingredientes.join(",")); // Converte array para string
 
-      // Mensagem de sucesso
-      alert("Prato atualizado com sucesso!");
-      navigate("/");
-    } catch (error) {
-      // Tratamento de erros da API
-      if (error.response && error.response.data) {
-        // Exibe a mensagem de erro retornada pelo backend
-        alert(`Erro: ${error.response.data.message}`);
-      } else {
-        // Erro genérico (ex: problemas de rede)
-        alert("Erro ao atualizar o prato. Tente novamente mais tarde.");
-      }
-    }
     try {
-      const response = await api.put(`/pratos/${params.id}`, fileForm);
-      console.log(response.data); // Adicione um log para verificar a resposta
-    } catch (error) {
-      console.error(error.response ? error.response.data : error.message);
-    }
-    
-  }
+        const response = await api.put(`/pratos/${params.id}`, fileForm, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
 
+        alert("Prato atualizado com sucesso!");
+        navigate("/");
+    } catch (error) {
+        if (error.response && error.response.data) {
+            alert(`Erro: ${error.response.data.message}`);
+        } else {
+            alert("Erro ao atualizar o prato. Tente novamente mais tarde.");
+        }
+    }
+}
   return (
     <Container {...rest}>
       <Menu isAdmin={isAdmin} />
@@ -180,9 +170,28 @@ export function EditDishes({ ...rest }) {
                   name="food-category"
                   id="food-category"
                 >
-                  <option value="pratos">Refeição</option>
-                  <option value="sobremesa">Sobremesa</option>
-                  <option value="drink">Drink</option>
+                   
+                  {category === "refeição" ? (
+                    <>
+                      <option value="pratos">Refeição</option>
+                      <option value="sobremesa">Sobremesa</option>
+                      <option value="drink">Drink</option>
+                    </>
+                  ) : category === "sobremesa" ? (
+                    <>
+                      <option value="sobremesa">Sobremesa</option>
+                      <option value="pratos">Refeição</option>
+                      <option value="drink">Drink</option>
+                    </>
+                  ) : (
+                    category === "bebida" && (
+                      <>
+                        <option value="drink">Drink</option>
+                        <option value="pratos">Refeição</option>
+                        <option value="sobremesa">Sobremesa</option>
+                      </>
+                    )
+                  )}
                 </select>
                 {!selectIsOpen ? (
                   <CaretUp className="icon focused" />
