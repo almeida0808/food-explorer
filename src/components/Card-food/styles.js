@@ -43,6 +43,8 @@ export const Container = styled.div`
   }
 
   > img {
+    object-fit: cover;
+
     border-radius: 50%;
     width: 70px;
     height: 70px;
@@ -142,7 +144,6 @@ export const Container = styled.div`
 
     .description {
       padding: 0;
-
       font-family: Roboto;
       font-weight: 300;
       color: ${({ theme }) => theme.COLORS.LIGHT_400};
@@ -166,7 +167,7 @@ export const Container = styled.div`
   }
   @media (min-width: 1024px) {
     padding: ${(props) => (props.isAdmin ? "12px" : "24px")};
-    height: ${(props) => (props.isAdmin ? "max-content" : "500px")};
+    height: ${(props) => (props.isAdmin ? "400px" : "500px")};
     width: 300px;
 
     gap: 15px;

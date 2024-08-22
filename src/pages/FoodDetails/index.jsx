@@ -8,29 +8,53 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { api } from "../../services/api";
 import { useAuth } from "../../hooks/auth";
+import { useQuantity } from "../../hooks/QuantityContext";
 
-export function FoodDetails({ isAdmin, ...rest }) {
-  
+export function FoodDetails({  ...rest }) {
+  const { user } = useAuth();
+  const [role, setRole] = useState(user.role);
+  const isAdmin = role === "admin";
 
   const [dish, setDish] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
   const params = useParams();
+  const navigate = useNavigate();
+  
+  const { quantities, updateQuantity,getTotalQuantity} = useQuantity();
+  const [dishQuantity, setDishQuantity] = useState(0);
 
-  const navigate = useNavigate()
+  useEffect(() => {
+    // Define a quantidade inicial do prato com base no contexto
+    const initialQuantity = quantities[params.id] || 0;
+    setDishQuantity(initialQuantity);
+  }, [quantities, params.id]);
 
   function EditDish(){
-  navigate(`/edit/${params.id}`)
-  
+    navigate(`/edit/${params.id}`);
+  }
+
+  function addQuantity() {
+    setDishQuantity(prevQuantity => {
+      const newQuantity = prevQuantity + 1;
+      updateQuantity(params.id, newQuantity);
+      return newQuantity;
+    });
+  }
+
+  function removeQuantity() {
+    setDishQuantity(prevQuantity => {
+      if (prevQuantity <= 0) return prevQuantity;
+      const newQuantity = prevQuantity - 1;
+      updateQuantity(params.id, newQuantity);
+      return newQuantity;
+    });
   }
 
   useEffect(() => {
     async function fetchDishes() {
       const response = await api.get(`/pratos/${params.id}`);
-
       setDish(response.data);
-      setImagePreview(
-        `${api.defaults.baseURL}/files/${response.data.imageUrl}`
-      );
+      setImagePreview(`${api.defaults.baseURL}/files/${response.data.imageUrl}`);
     }
 
     fetchDishes();
@@ -38,7 +62,7 @@ export function FoodDetails({ isAdmin, ...rest }) {
 
   return (
     <Container>
-      <Menu isAdmin={isAdmin} />
+      <Menu isAdmin={isAdmin} totalQuantity={getTotalQuantity()}/>
       <Main>
         <div className="voltar">
           <Link to="/">
@@ -48,7 +72,7 @@ export function FoodDetails({ isAdmin, ...rest }) {
         </div>
 
         <div className="food">
-        <img src={imagePreview} alt={dish.name} />
+          <img src={imagePreview} alt={dish.name} />
 
           <div className="details">
             <h1>{dish.name}</h1>
@@ -59,28 +83,29 @@ export function FoodDetails({ isAdmin, ...rest }) {
                 <Tag name={ingrediente.name} key={index} />
               ))}
             </section>
-            {!isAdmin ? (
+            {isAdmin ? (
               <Button onClick={EditDish} title="Editar prato" />
-            ):( // SE isAdmin for falso renderize esse elemento
+            ) : (
               <div className="addFood">
                 <div className="quantidade">
-                  <button>
+                  <button onClick={removeQuantity}>
                     <Minus />
                   </button>
-                  <span>01</span>
-                  <button>
+                  <span>{dishQuantity}</span>
+                  <button onClick={addQuantity}>
                     <Plus />
                   </button>
                 </div>
                 <Button
+                  disabled={dishQuantity === 0}
                   title={
                     <span>
                       <Receipt />
-                      {`pedir ∙ R${dish.value}`}
+                      {`pedir ∙ R${(dish.value * dishQuantity).toFixed(2)}`}
                     </span>
                   }
                 />
-              </div> // se não for falso ele vai ser admin, então renderize esse
+              </div>
             )}
           </div>
         </div>

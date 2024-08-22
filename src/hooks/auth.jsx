@@ -7,6 +7,8 @@ function AuthProvider({ children }) {
   const [data, setData] = useState({});
 
   async function signIn({ email, password }) {
+    
+    
     try {
       const response = await api.post("/sessions", { email, password });
       const { user, token } = response.data;
@@ -24,6 +26,7 @@ function AuthProvider({ children }) {
   }
 
   function signOut() {
+
     const confirmSignOut = confirm("Tem certeza que deseja sair?");
 
     if (!confirmSignOut) {

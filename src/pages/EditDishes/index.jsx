@@ -91,7 +91,11 @@ export function EditDishes({ ...rest }) {
       );
     }
   }
-  async function handleNewDishe(event) {
+  const HandleSelectIsOpen = () => {
+    setSelectIsOpen((prevState) => !prevState);
+  };
+
+  async function handleEditDish(event) {
     event.preventDefault(); // Evita o comportamento padrão do formulário
 
     if (!name || !value || !category || !description || ingredientes.length === 0) {
@@ -101,14 +105,14 @@ export function EditDishes({ ...rest }) {
 
     const fileForm = new FormData();
 
+    
     if (imageFile) {
         fileForm.append("image", imageFile);
     }
-
     fileForm.append("name", name);
     fileForm.append("description", description);
     fileForm.append("category", category);
-    fileForm.append("value", value);
+    fileForm.append("value",parseFloat(value.replace(',', '.')).toFixed(2).replace(',', '.'));
     fileForm.append("ingredientes", ingredientes.join(",")); 
 
     try {
@@ -170,6 +174,8 @@ export function EditDishes({ ...rest }) {
   <div className="selectWrapper">
     <select
       onChange={(e) => setCategory(e.target.value)}
+      onClick={HandleSelectIsOpen}
+      onBlur={() => setSelectIsOpen(false)}
       name="food-category"
       id="food-category"
       value={category} // Define o valor selecionado como o valor atual da categoria
@@ -178,6 +184,11 @@ export function EditDishes({ ...rest }) {
       <option value="sobremesa">Sobremesa</option>
       <option value="bebida">Drink</option>
     </select>
+    {!selectIsOpen ? (
+                  <CaretUp className="icon focused" />
+                ) : (
+                  <CaretDown className="icon default" />
+                )}
   </div>
 </div>
 
@@ -226,7 +237,7 @@ export function EditDishes({ ...rest }) {
           <div className="buttons">
             <Button
               title="Salvar Prato"
-              onClick={handleNewDishe}
+              onClick={handleEditDish}
               disabled={isFormValid}
             />
           </div>

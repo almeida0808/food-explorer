@@ -12,13 +12,16 @@ import { FoodDetails } from "./pages/FoodDetails";
 
 import { Routes } from "./routes";
 import { AuthProvider } from "./hooks/auth";
+import { QuantityProvider } from "./hooks/QuantityContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ThemeProvider theme={temas}>
       <GlobalStyle />
       <AuthProvider>
+        <QuantityProvider>
     <Routes/>
+    </QuantityProvider>
       </AuthProvider>
     </ThemeProvider>
   </React.StrictMode>

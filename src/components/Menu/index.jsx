@@ -7,7 +7,7 @@ import { useMediaQuery } from "react-responsive";
 import { useAuth } from "../../hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
 
-export function Menu({onSearch,  ...rest }) {
+export function Menu({onSearch,  totalQuantity,...rest }) {
   const { user } = useAuth();
   const [role, setRole] = useState(user.role);
   const isAdmin = role == "admin";
@@ -43,6 +43,7 @@ function handleInputChange(e){
   return (
     <Container {...rest}>
       <Header
+      totalQuantity={totalQuantity}
         data-menu-is-open={menuIsOpen}
         isAdmin={isAdmin}
         menuIsOpen={menuIsOpen}
@@ -57,7 +58,7 @@ function handleInputChange(e){
               <MagnifyingGlass />
               <input
                 type="text"
-                placeholder="Busque por pratos ou ingredientes"
+                placeholder="Busque por opções de pratos"
                 onChange={handleInputChange}
               />
             </div>

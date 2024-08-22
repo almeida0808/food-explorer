@@ -20,6 +20,7 @@ export function Header({
   menuIsOpen,
   onChange,
   HandleToglleMenu,
+  totalQuantity,
   ...rest
   
 }) {
@@ -55,7 +56,7 @@ export function Header({
           {!isAdmin ? (
             <div className="pedidos">
               <Receipt />
-              <button>0</button>
+              <button>{totalQuantity}</button>
             </div>
           ) : (
             <div className="pedidos"></div>
@@ -83,7 +84,7 @@ export function Header({
 
             {!isAdmin ? (
               <button className="pedidos">
-                <Receipt /> {`Pedidos (${value})`}
+                <Receipt /> {`Pedidos (${totalQuantity})`}
               </button>
             ) : (
               <Link to="/new" className="newPrato">

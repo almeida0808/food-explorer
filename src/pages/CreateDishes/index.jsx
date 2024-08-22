@@ -46,6 +46,12 @@ setIsFormValid(false)
   }
 },[name,category,description,image,value, ingredientes])
 
+
+function formatarValor(value) {
+  setValue(parseFloat(value.replace(',', '.')).toFixed(2).replace('.', ','))
+
+}
+
   function handleAddTag() {
     if (!newIngrediente.trim()) {
       alert("Por favor, adicione um ingrediente válido.");
@@ -225,8 +231,7 @@ setIsFormValid(false)
               title="Preço"
               type="number"
               placeholder="19,99"
-              onChange={(e) => {
-                setValue(e.target.value);
+              onChange={(e) => {formatarValor(e.target.value);
               }}
             />
           </div>

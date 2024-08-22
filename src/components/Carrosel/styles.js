@@ -3,8 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   margin-bottom: 1.5rem;
   width: 100%;
-  height: max-content;
-
+  overflow-y: hidden;
   .swiper {
   }
   .swiper-button-prev,
@@ -30,6 +29,7 @@ export const Container = styled.div`
     // ESTILO DA DIV QUE GUARDA OS CARDS
     display: flex;
     flex-direction: row; // faz com qu os cards fiquem tudo em uma linha só
+    overflow-y: hidden;
     overflow-x: scroll; // caso tenha mais de um item ele ativa o scroll , x por causa de ser na vertical
     scroll-behavior: smooth; // deixa o  scroll mais suave
     gap: 1rem; // distancia de um card pro outro
