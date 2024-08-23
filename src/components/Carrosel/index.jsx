@@ -1,8 +1,8 @@
 import { Container } from "./styles";
 import { useMediaQuery } from "react-responsive";
 import { Navigation, Pagination, A11y } from "swiper/modules";
-
-import { Swiper } from "swiper/react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { motion } from "framer-motion";
 
 // Import Swiper styles
 import "swiper/css";
@@ -20,9 +20,22 @@ export function CarrosselFood({
 }) {
   const isSmallMobile = useMediaQuery({ minWidth: 300, maxWidth: 374 });
   const isMobile = useMediaQuery({ minWidth: 375, maxWidth: 574 });
-  const isTablet = useMediaQuery({ minWidth: 575, maxWidth: 1299 }); // Intervalo para tablets
-  const isDesktop = useMediaQuery({ minWidth: 1300, maxWidth:1699 });
+  const isTablet = useMediaQuery({ minWidth: 575, maxWidth: 1299 });
+  const isDesktop = useMediaQuery({ minWidth: 1300, maxWidth: 1699 });
   const isLargeDesktop = useMediaQuery({ minWidth: 1700 });
+
+  // Definir a animação com delays para cada slide
+  const slideVariants = {
+    hidden: { opacity: 0, scale: 0. },
+    visible: (i) => ({
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delay: i * 0.3, // Ajuste o delay entre os itens
+        duration: 0.5,
+      },
+    }),
+  };
 
   return (
     <Container className="carrosel">
@@ -32,11 +45,32 @@ export function CarrosselFood({
         spaceBetween={0}
         loop={true}
         slidesPerView={
-          isSmallMobile ? 1.8 : isMobile ? 2 : isTablet ? 3 : isDesktop ? 4 : isLargeDesktop ? 5 : 1 // Caso não se enquadre em nenhum dos casos acima, exibe 1 slide
+          isSmallMobile
+            ? 1.8
+            : isMobile
+            ? 2
+            : isTablet
+            ? 3
+            : isDesktop
+            ? 4
+            : isLargeDesktop
+            ? 5
+            : 1
         }
-        navigation={isTablet || isDesktop ||isLargeDesktop} // Ativa navegação para tablets e desktops
+        navigation={isTablet || isDesktop || isLargeDesktop}
       >
-        {children}
+        {children.map((child, index) => (
+          <SwiperSlide key={index}>
+            <motion.div
+              custom={index}
+              initial="hidden"
+              animate="visible"
+              variants={slideVariants}
+            >
+              {child}
+            </motion.div>
+          </SwiperSlide>
+        ))}
       </Swiper>
     </Container>
   );

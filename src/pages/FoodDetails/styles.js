@@ -16,14 +16,14 @@ export const Main = styled.main`
   background-color: ${({ theme }) => theme.COLORS.DARK_400};
 
   grid-area: main;
-  margin: 0 auto;
+  margin: 50px auto 0;
   display: flex;
   flex-direction: column;
   max-width: 80%;
   align-items: center;
   font-family: Poppins;
   color: ${({ theme }) => theme.COLORS.LIGHT_100};
-  > .voltar {
+  .voltar {
     a:first-child {
       margin: 25px 0;
       text-decoration: none;

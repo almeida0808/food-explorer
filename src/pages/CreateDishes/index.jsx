@@ -12,12 +12,12 @@ import {
   CaretDown,
   CaretUp,
 } from "@phosphor-icons/react";
+import { motion } from "framer-motion";
 
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/auth";
 
 import { api } from "../../services/api";
-import { FolderMinus } from "@phosphor-icons/react/dist/ssr";
 
 export function CreateDishes({ ...rest }) {
   const [value, setValue] = useState();
@@ -34,6 +34,18 @@ export function CreateDishes({ ...rest }) {
   const [selectIsOpen, setSelectIsOpen] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
 
+
+  const formVariants = {
+    hidden: { opacity: 0, x: -100 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        delay: 0.3, // Atraso para cada carrossel
+        duration: 0.5,
+      },
+    },
+  };
 
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -143,11 +155,12 @@ function formatarValor(value) {
     setSelectIsOpen((prevState) => !prevState);
   };
 
+  
   return (
     <Container {...rest}>
       <Menu isAdmin={isAdmin} />
       <Main>
-        <form>
+        <motion.form initial="hidden" animate="visible" variants={formVariants}>
         <Link to="/">
           <CaretLeft /> voltar
         </Link>
@@ -160,6 +173,7 @@ function formatarValor(value) {
   <img src={image} alt="" />
   </div>
 }
+
 
           <div className="formPartOne">
             <label className="imgFood" htmlFor="ImgFood">
@@ -251,7 +265,7 @@ function formatarValor(value) {
           <div className="buttons">
             <Button title="Salvar Prato" onClick={handleNewDishe} disabled={isFormValid} />
           </div>
-        </form>
+        </motion.form>
       </Main>
       <Footer />
     </Container>

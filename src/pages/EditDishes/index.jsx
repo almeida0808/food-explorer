@@ -5,6 +5,7 @@ import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
 import { Menu } from "../../components/Menu";
 import { IngredienteItem } from "../../components/Ingrediente-item";
+import { motion } from "framer-motion";
 import {
   UploadSimple,
   CaretLeft,
@@ -18,6 +19,18 @@ import { useAuth } from "../../hooks/auth";
 export function EditDishes({ ...rest }) {
   const [selectIsOpen, setSelectIsOpen] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
+
+  const formVariants = {
+    hidden: { opacity: 0, x: -100 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        delay: 0.3, // Atraso para cada carrossel
+        duration: 0.5,
+      },
+    },
+  };
 
   const params = useParams();
   const { user } = useAuth();
@@ -48,7 +61,6 @@ export function EditDishes({ ...rest }) {
         setIngredientes(
           response.data.ingredientes.map((ingrediente) => ingrediente.name)
         );
-
       } catch (error) {
         alert(`Erro ao carregar nota: (${error.message})`);
         navigate("/");
@@ -98,45 +110,55 @@ export function EditDishes({ ...rest }) {
   async function handleEditDish(event) {
     event.preventDefault(); // Evita o comportamento padrão do formulário
 
-    if (!name || !value || !category || !description || ingredientes.length === 0) {
-        alert("Por favor, preencha todos os campos e adicione pelo menos um ingrediente.");
-        return;
+    if (
+      !name ||
+      !value ||
+      !category ||
+      !description ||
+      ingredientes.length === 0
+    ) {
+      alert(
+        "Por favor, preencha todos os campos e adicione pelo menos um ingrediente."
+      );
+      return;
     }
 
     const fileForm = new FormData();
 
-    
     if (imageFile) {
-        fileForm.append("image", imageFile);
+      fileForm.append("image", imageFile);
     }
     fileForm.append("name", name);
     fileForm.append("description", description);
     fileForm.append("category", category);
-    fileForm.append("value",parseFloat(value.replace(',', '.')).toFixed(2).replace(',', '.'));
-    fileForm.append("ingredientes", ingredientes.join(",")); 
+    fileForm.append(
+      "value",
+      parseFloat(value.replace(",", ".")).toFixed(2).replace(",", ".")
+    );
+    fileForm.append("ingredientes", ingredientes.join(","));
 
     try {
-        await api.put(`/pratos/${params.id}`, fileForm, {
-            headers: {
-                "Content-Type": "multipart/form-data" // Importante para upload de arquivos
-            }
-        });
-        alert("Prato atualizado com sucesso!");
-        navigate("/");
+      await api.put(`/pratos/${params.id}`, fileForm, {
+        headers: {
+          "Content-Type": "multipart/form-data", // Importante para upload de arquivos
+        },
+      });
+      alert("Prato atualizado com sucesso!");
+      navigate("/");
     } catch (error) {
-        if (error.response && error.response.data) {
-            alert(`Erro: ${error.response.data.message}`);
-        } else {
-            alert("Erro ao atualizar o prato. Tente novamente mais tarde.");
-        }
+      if (error.response && error.response.data) {
+        alert(`Erro: ${error.response.data.message}`);
+      } else {
+        alert("Erro ao atualizar o prato. Tente novamente mais tarde.");
+      }
     }
-}
+  }
 
   return (
     <Container {...rest}>
       <Menu isAdmin={isAdmin} />
       <Main>
-        <form>
+        <motion.form initial="hidden" animate="visible" variants={formVariants}>
           <Link to="/">
             <CaretLeft /> voltar
           </Link>
@@ -170,28 +192,27 @@ export function EditDishes({ ...rest }) {
               onChange={(e) => setName(e.target.value)}
             />
             <div className="foodCategory">
-  <label htmlFor="food-category">Categoria</label>
-  <div className="selectWrapper">
-    <select
-      onChange={(e) => setCategory(e.target.value)}
-      onClick={HandleSelectIsOpen}
-      onBlur={() => setSelectIsOpen(false)}
-      name="food-category"
-      id="food-category"
-      value={category} // Define o valor selecionado como o valor atual da categoria
-    >
-      <option value="refeição">Refeição</option>
-      <option value="sobremesa">Sobremesa</option>
-      <option value="bebida">Drink</option>
-    </select>
-    {!selectIsOpen ? (
+              <label htmlFor="food-category">Categoria</label>
+              <div className="selectWrapper">
+                <select
+                  onChange={(e) => setCategory(e.target.value)}
+                  onClick={HandleSelectIsOpen}
+                  onBlur={() => setSelectIsOpen(false)}
+                  name="food-category"
+                  id="food-category"
+                  value={category} // Define o valor selecionado como o valor atual da categoria
+                >
+                  <option value="refeição">Refeição</option>
+                  <option value="sobremesa">Sobremesa</option>
+                  <option value="bebida">Drink</option>
+                </select>
+                {!selectIsOpen ? (
                   <CaretUp className="icon focused" />
                 ) : (
                   <CaretDown className="icon default" />
                 )}
-  </div>
-</div>
-
+              </div>
+            </div>
           </div>
 
           <div className="formPartTwo">
@@ -241,7 +262,7 @@ export function EditDishes({ ...rest }) {
               disabled={isFormValid}
             />
           </div>
-        </form>
+        </motion.form>
       </Main>
       <Footer />
     </Container>

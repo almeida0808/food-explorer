@@ -128,7 +128,7 @@ export const Main = styled.main`
       img {
         width: 300px;
         height: 180px;
-        bottom: 57px;
+        bottom: 64px;
       }
     }
 

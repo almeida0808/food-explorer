@@ -7,6 +7,7 @@ export const Container = styled.div`
   display: flex;
   place-content: center;
   flex-direction: column;
+  align-items: center;
   > div:first-child {
     margin-bottom: 70px;
     justify-content: center;

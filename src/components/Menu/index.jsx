@@ -40,12 +40,13 @@ function handleInputChange(e){
   setSearch(newSearch)
   onSearch(search)
 }
+
+
   return (
     <Container {...rest}>
       <Header
       totalQuantity={totalQuantity}
         data-menu-is-open={menuIsOpen}
-        isAdmin={isAdmin}
         menuIsOpen={menuIsOpen}
         HandleToglleMenu={HandleToglleMenu}
         onChange={onSearch}
