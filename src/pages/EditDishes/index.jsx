@@ -26,7 +26,7 @@ export function EditDishes({ ...rest }) {
       opacity: 1,
       x: 0,
       transition: {
-        delay: 0.3, // Atraso para cada carrossel
+        delay: 0.3,
         duration: 0.5,
       },
     },
@@ -70,6 +70,21 @@ export function EditDishes({ ...rest }) {
     fetchDish();
   }, [params.id, navigate]);
 
+  useEffect(() => {
+    if (
+      name &&
+      category &&
+      description &&
+      imagePreview &&
+      value &&
+      ingredientes
+    ) {
+      setIsFormValid(false);
+    } else {
+      setIsFormValid(true);
+    }
+  }, [name, category, description, imagePreview, value, ingredientes]);
+
   function handleNewImage(event) {
     const file = event.target.files[0];
     setImageFile(file);
@@ -92,7 +107,7 @@ export function EditDishes({ ...rest }) {
       return [...prevState, ingredienteTrimmed];
     });
 
-    setNewIngrediente(""); // Limpa o campo de entrada
+    setNewIngrediente("");
   }
 
   function handleRemoveTag(deleted) {
@@ -108,7 +123,7 @@ export function EditDishes({ ...rest }) {
   };
 
   async function handleEditDish(event) {
-    event.preventDefault(); // Evita o comportamento padrão do formulário
+    event.preventDefault();
 
     if (
       !name ||
@@ -140,7 +155,7 @@ export function EditDishes({ ...rest }) {
     try {
       await api.put(`/pratos/${params.id}`, fileForm, {
         headers: {
-          "Content-Type": "multipart/form-data", // Importante para upload de arquivos
+          "Content-Type": "multipart/form-data",
         },
       });
       alert("Prato atualizado com sucesso!");
@@ -152,6 +167,23 @@ export function EditDishes({ ...rest }) {
         alert("Erro ao atualizar o prato. Tente novamente mais tarde.");
       }
     }
+  }
+
+  async function handleDeleteDish() {
+    const confirmDelete = confirm(
+      "Você tem certeza que deseja excluir este prato?"
+    );
+    if (confirmDelete) {
+      try {
+        await api.delete(`/pratos/${params.id}`);
+        
+        alert("Prato deletado com sucesso!");
+        navigate("/");
+      } catch (error) {
+        alert("Não foi possível excluir este prato");
+      }
+    }
+    return
   }
 
   return (
@@ -200,7 +232,7 @@ export function EditDishes({ ...rest }) {
                   onBlur={() => setSelectIsOpen(false)}
                   name="food-category"
                   id="food-category"
-                  value={category} // Define o valor selecionado como o valor atual da categoria
+                  value={category}
                 >
                   <option value="refeição">Refeição</option>
                   <option value="sobremesa">Sobremesa</option>
@@ -256,6 +288,7 @@ export function EditDishes({ ...rest }) {
           </div>
 
           <div className="buttons">
+            <Button title="Excluir Prato" onClick={handleDeleteDish} />
             <Button
               title="Salvar Prato"
               onClick={handleEditDish}

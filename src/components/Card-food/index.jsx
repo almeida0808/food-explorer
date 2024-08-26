@@ -1,9 +1,8 @@
 import { Container } from "./styles";
-import { Button } from "../Button";
 import { Heart, Minus, Plus, PencilSimple } from "@phosphor-icons/react";
 import { useMediaQuery } from "react-responsive";
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { api } from "../../services/api";
 import { useQuantity } from "../../hooks/QuantityContext";
 
@@ -26,7 +25,6 @@ export function CardFood({
   const { updateQuantity, quantities } = useQuantity();
   const [dishQuantity, setDishQuantity] = useState(0);
 
-  // Sincroniza dishQuantity com o contexto quando o componente é montado
   useEffect(() => {
     const initialQuantity = quantities[data.id] || 0;
     setDishQuantity(initialQuantity);

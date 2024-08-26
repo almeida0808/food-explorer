@@ -64,7 +64,13 @@ export const Main = styled.main`
         }
       }
     }
+  }
 
+  .NotFound {
+    height: 100vh;
+    h1 {
+      color: white;
+    }
     @media (min-width: 375px) {
       img {
         bottom: 56px;

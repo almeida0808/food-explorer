@@ -1,6 +1,5 @@
 import { Container } from "./styles";
 import { Logo } from "../Logo";
-import { Button } from "../Button";
 import {
   List,
   Receipt,

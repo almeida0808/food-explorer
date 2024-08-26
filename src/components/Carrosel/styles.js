@@ -13,11 +13,10 @@ export const Container = styled.div`
 
   .swiper-button-next::after,
   .swiper-button-prev::after {
-    font-size: 18px; /* Ajuste o tamanho da fonte do ícone */
+    font-size: 18px;
   }
 
   > h2 {
-    // ESTILO DO TITULO
     margin: 0 0 0 1.5rem;
     color: ${({ theme }) => theme.COLORS.LIGHT_300};
     font-family: Poppins;
@@ -26,13 +25,12 @@ export const Container = styled.div`
   }
 
   .cards {
-    // ESTILO DA DIV QUE GUARDA OS CARDS
     display: flex;
-    flex-direction: row; // faz com qu os cards fiquem tudo em uma linha só
+    flex-direction: row;
     overflow-y: hidden;
-    overflow-x: scroll; // caso tenha mais de um item ele ativa o scroll , x por causa de ser na vertical
-    scroll-behavior: smooth; // deixa o  scroll mais suave
-    gap: 1rem; // distancia de um card pro outro
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+    gap: 1rem;
     position: relative;
 
     &::-webkit-scrollbar {

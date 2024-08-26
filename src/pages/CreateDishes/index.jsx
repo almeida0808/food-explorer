@@ -24,16 +24,15 @@ export function CreateDishes({ ...rest }) {
   const [name, setName] = useState();
   const [category, setCategory] = useState("sobremesa");
   const [description, setDescription] = useState();
-  
+
   const [image, setImage] = useState(null);
   const [imageFile, setImageFile] = useState(null);
-  
+
   const [ingredientes, setIngredientes] = useState([]);
   const [newIngrediente, setNewIngrediente] = useState("");
-  
+
   const [selectIsOpen, setSelectIsOpen] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
-
 
   const formVariants = {
     hidden: { opacity: 0, x: -100 },
@@ -41,7 +40,7 @@ export function CreateDishes({ ...rest }) {
       opacity: 1,
       x: 0,
       transition: {
-        delay: 0.3, // Atraso para cada carrossel
+        delay: 0.3, 
         duration: 0.5,
       },
     },
@@ -50,19 +49,17 @@ export function CreateDishes({ ...rest }) {
   const navigate = useNavigate();
   const { user } = useAuth();
 
-useEffect(()=>{
-  if(name && category && description && image && value && ingredientes){
-setIsFormValid(false)
-  }else{
-    setIsFormValid(true)
+  useEffect(() => {
+    if (name && category && description && image && value && ingredientes) {
+      setIsFormValid(false);
+    } else {
+      setIsFormValid(true);
+    }
+  }, [name, category, description, image, value, ingredientes]);
+
+  function formatarValor(value) {
+    setValue(parseFloat(value.replace(",", ".")).toFixed(2).replace(".", ","));
   }
-},[name,category,description,image,value, ingredientes])
-
-
-function formatarValor(value) {
-  setValue(parseFloat(value.replace(',', '.')).toFixed(2).replace('.', ','))
-
-}
 
   function handleAddTag() {
     if (!newIngrediente.trim()) {
@@ -86,19 +83,15 @@ function formatarValor(value) {
   }
 
   async function handleNewDishe() {
-
-    // Verificação do campo name
     if (!name) {
       alert("Por favor, informe o nome do prato");
       return;
     }
-    // Verificação dos ingredientes
     if (!ingredientes || ingredientes.length === 0) {
       alert("Por favor, adicione pelo menos um ingrediente.");
       return;
     }
 
-    // Verificação do campo newIngrediente
     if (newIngrediente) {
       alert(
         "Ops... Um ingrediente ficou esquecido no formulário. Confirme o ingrediente ou deixe o campo vazio!"
@@ -126,24 +119,18 @@ function formatarValor(value) {
     fileForm.append("description", description);
     fileForm.append("category", category);
     fileForm.append("value", value);
-    fileForm.append("ingredientes",ingredientes); // Converte array para string se necessário
-    console.log(fileForm)
-    
-    try {
-      // Requisição à API para criar um novo prato
-      await api.post(`/pratos`, fileForm);
-    
+    fileForm.append("ingredientes", ingredientes); // Converte array para string se necessário
+    console.log(fileForm);
 
-      // Mensagem de sucesso
+    try {
+      await api.post(`/pratos`, fileForm);
+
       alert("Prato criado com sucesso!");
       navigate("/");
     } catch (error) {
-      // Tratamento de erros da API
       if (error.response && error.response.data) {
-        // Exibe a mensagem de erro retornada pelo backend
         alert(`Erro: ${error.response.data.message}`);
       } else {
-        // Erro genérico (ex: problemas de rede)
         alert("Erro ao criar o prato. Tente novamente mais tarde.");
       }
     }
@@ -155,25 +142,22 @@ function formatarValor(value) {
     setSelectIsOpen((prevState) => !prevState);
   };
 
-  
   return (
     <Container {...rest}>
       <Menu isAdmin={isAdmin} />
       <Main>
         <motion.form initial="hidden" animate="visible" variants={formVariants}>
-        <Link to="/">
-          <CaretLeft /> voltar
-        </Link>
+          <Link to="/">
+            <CaretLeft /> voltar
+          </Link>
           <h1>Criar Prato</h1>
 
-{
-  image && 
-  <div className="imgPreview">
-    <span>Imagem Selecionada</span>
-  <img src={image} alt="" />
-  </div>
-}
-
+          {image && (
+            <div className="imgPreview">
+              <span>Imagem Selecionada</span>
+              <img src={image} alt="" />
+            </div>
+          )}
 
           <div className="formPartOne">
             <label className="imgFood" htmlFor="ImgFood">
@@ -245,7 +229,8 @@ function formatarValor(value) {
               title="Preço"
               type="number"
               placeholder="19,99"
-              onChange={(e) => {formatarValor(e.target.value);
+              onChange={(e) => {
+                formatarValor(e.target.value);
               }}
             />
           </div>
@@ -263,7 +248,11 @@ function formatarValor(value) {
           </div>
 
           <div className="buttons">
-            <Button title="Salvar Prato" onClick={handleNewDishe} disabled={isFormValid} />
+            <Button
+              title="Salvar Prato"
+              onClick={handleNewDishe}
+              disabled={isFormValid}
+            />
           </div>
         </motion.form>
       </Main>

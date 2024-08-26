@@ -16,7 +16,6 @@ export function CardFood({
     <Container>
 <Container {...rest}>
       {
-        // caso seja um admin moste o icone do lapis
         isAdmin ? (<PencilSimple className="edit" />) 
         : // caso não seja admin verifique se o like é falso , se for falso renderize o coração vazado
         !like ? (<Heart className="like" />) 

@@ -32,7 +32,7 @@ export function FoodDetails({ ...rest }) {
       opacity: 1,
       scale: 1,
       transition: {
-        delay: i * 0.3, // Ajuste o delay entre os itens
+        delay: i * 0.3, 
         duration: 0.5,
       },
     }),

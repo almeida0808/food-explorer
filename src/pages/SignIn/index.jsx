@@ -20,48 +20,36 @@ export function SignIn() {
     signIn({ email, password });
   }
 
-  // Variantes para a animação da logo (loop de piscar)
   const logoVariants = {
     initial: { opacity: 1 },
     animate: {
-      opacity: [1,1, 0,1, 1], // Pisca de opaco para transparente e volta
+      opacity: [1, 1, 0, 1, 1],
       transition: {
-        duration: 4, // Tempo de um ciclo de piscar
-        repeat: Infinity, // Repetir indefinidamente
+        duration: 4,
+        repeat: Infinity,
       },
     },
   };
 
-  // Variantes para a animação do formulário (entrada)
   const formVariants = {
     hidden: { scale: 0, opacity: 0 },
     visible: {
       scale: 1,
       opacity: 1,
       transition: {
-        duration: 0.5, // Duração da animação
-        ease: "easeOut", // Curva de animação
+        duration: 0.5,
+        ease: "easeOut",
       },
     },
   };
 
   return (
     <Container>
-      {/* Animação de piscar para a logo */}
-      <motion.div
-        variants={logoVariants}
-        initial="initial"
-        animate="animate"
-      >
-        <Logo class/>
+      <motion.div variants={logoVariants} initial="initial" animate="animate">
+        <Logo class />
       </motion.div>
 
-      {/* Animação de entrada para o formulário */}
-      <motion.form
-        variants={formVariants}
-        initial="hidden"
-        animate="visible"
-      >
+      <motion.form variants={formVariants} initial="hidden" animate="visible">
         {isDesktop && <h1>Faça seu login</h1>}
 
         <Input

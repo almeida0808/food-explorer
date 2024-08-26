@@ -1,5 +1,4 @@
 import { Container } from "./styles";
-import simbolo from "../../assets/logo.svg";
 import { Hexagon } from "@phosphor-icons/react";
 
 export function Logo({isAdmin=false}) {

@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { Header } from "../Header";
-import { Input } from "../Input";
 import { Container } from "./styles";
 import { MagnifyingGlass} from "@phosphor-icons/react";
 import { useMediaQuery } from "react-responsive";
 import { useAuth } from "../../hooks/auth";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 
 export function Menu({onSearch,  totalQuantity,...rest }) {
   const { user } = useAuth();

@@ -10,7 +10,7 @@ export function IngredienteItem({ value = "", onClick, isNew, ...rest }) {
           placeholder="Adicionar"
           type="text"
           value={value}
-          onChange={(e) => rest.onChange?.(e)} // Chamando onChange se disponível
+          onChange={(e) => rest.onChange?.(e)} 
         />
       ) : (
         <span>{value}</span>

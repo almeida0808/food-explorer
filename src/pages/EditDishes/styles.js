@@ -147,7 +147,7 @@ export const Main = styled.main`
         }
 
         .selectWrapper select {
-          padding-right: 30px; /* espaço para o ícone */
+          padding-right: 30px;
         }
 
         .selectWrapper .icon {
@@ -157,7 +157,7 @@ export const Main = styled.main`
           right: 10px;
           top: 50%;
           transform: translateY(-50%);
-          pointer-events: none; /* para que o ícone não interfira na interação com o select */
+          pointer-events: none;
         }
       }
     }
@@ -211,6 +211,7 @@ export const Main = styled.main`
       > button:first-child {
         font-size: 1rem;
         font-weight: 400;
+        background-color: ${({ theme }) => theme.COLORS.DARK_1000};
       }
       > button:last-child {
         font-weight: 400;
