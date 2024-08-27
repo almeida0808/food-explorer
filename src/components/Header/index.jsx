@@ -90,6 +90,7 @@ export function Header({
       <div className="pesquisar">
         <MagnifyingGlass />
         <input
+        value={search}
           onChange={handleInputChange}
           type="text"
           placeholder="Busque por pratos ou ingredientes"

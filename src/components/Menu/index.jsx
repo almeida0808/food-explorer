@@ -54,10 +54,12 @@ function handleInputChange(e){
       {!isDesktop && (
         <nav data-menu-is-open={menuIsOpen}>
           <div className="options">
-            <div className="pesquisar">
+
+           <div className="pesquisar">
               <MagnifyingGlass />
               <input
                 type="text"
+                value={search}
                 placeholder="Busque por opções de pratos"
                 onChange={handleInputChange}
               />

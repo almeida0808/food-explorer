@@ -22,27 +22,27 @@ export function Home({ ...rest }) {
   function handleSearchChange(newSearch) {
     setSearch(newSearch);
   }
-console.log(dishes.length >= 1)
+
   useEffect(() => {
     async function fetchDishes() {
       const response = await api.get(`/pratos?name=${search}`);
-      const fetchedDishes = response.data.pratos.map((dish) => ({
+      const fetchedDishes = response.data.pratos.map(dish => ({
         ...dish,
-        quantity: quantities[dish.id] || 0,
+        quantity: quantities[dish.id] || 0 // Define a quantidade inicial para cada prato com base no contexto
       }));
       setDishes(fetchedDishes);
     }
-
+    
     fetchDishes();
-  }, [search, quantities]);
+  }, [search, quantities]); // Inclua 'quantities' como dependência para garantir a atualização correta
 
   const carrosselVariants = {
     hidden: { opacity: 0, x: -100 },
-    visible: (i) => ({
+    visible: i => ({
       opacity: 1,
       x: 0,
       transition: {
-        delay: i * 0.3,
+        delay: i * 0.3, // Atraso para cada carrossel
         duration: 0.5,
       },
     }),
@@ -53,7 +53,7 @@ console.log(dishes.length >= 1)
       opacity: 1,
       y: 0,
       transition: {
-        delay: 0,
+        delay: 0, 
         duration: 0.5,
       },
     },
@@ -61,19 +61,15 @@ console.log(dishes.length >= 1)
 
   return (
     <Container>
-      <Menu
-        totalQuantity={getTotalQuantity()}
-        onSearch={handleSearchChange}
-        isAdmin={isAdmin}
-      />
+      <Menu totalQuantity={getTotalQuantity()} onSearch={handleSearchChange} isAdmin={isAdmin} />
       <Main>
-        <motion.section
-          custom={2}
-          initial="hidden"
-          animate="visible"
-          variants={bannerVariants}
-          className="banner"
-        >
+
+        <motion.section 
+         custom={2}
+         initial="hidden"
+         animate="visible"
+         variants={bannerVariants}
+        className="banner">
           <img src={frutasBanner} alt="" />
           <div className="background-banner">
             <div>
@@ -82,81 +78,63 @@ console.log(dishes.length >= 1)
             </div>
           </div>
         </motion.section>
-{dishes.length >= 1 ?
-<div>
-  {dishes.filter((dish) => dish.category === "refeição").length > 0 && (
-    <motion.div
-      custom={0}
-      initial="hidden"
-      animate="visible"
-      variants={carrosselVariants}
-    >
-      <CarrosselFood title="Pratos Principais">
-        {dishes
-          .filter((dish) => dish.category === "refeição")
-          .map((dish) => (
-            <SwiperSlide className="cards" key={dish.id}>
-              <CardFood
-                isAdmin={isAdmin}
-                data={dish}
-                quantity={dish.quantity}
-              />
-            </SwiperSlide>
-          ))}
-      </CarrosselFood>
-    </motion.div>
-  )}
 
-  {dishes.filter((dish) => dish.category === "sobremesa").length > 0 && (
-    <motion.div
-      custom={1}
-      initial="hidden"
-      animate="visible"
-      variants={carrosselVariants}
-    >
-      <CarrosselFood title="Sobremesas">
-        {dishes
-          .filter((dish) => dish.category === "sobremesa")
-          .map((dish) => (
-            <SwiperSlide className="cards" key={dish.id}>
-              <CardFood
-                isAdmin={isAdmin}
-                data={dish}
-                quantity={dish.quantity}
-              />
-            </SwiperSlide>
-          ))}
-      </CarrosselFood>
-    </motion.div>
-  )}
+        {dishes.filter((dish) => dish.category === "refeição").length > 0 && (
+          <motion.div
+            custom={0}
+            initial="hidden"
+            animate="visible"
+            variants={carrosselVariants}
+          >
+            <CarrosselFood title="Pratos Principais">
+              {dishes
+                .filter((dish) => dish.category === "refeição")
+                .map((dish) => (
+                  <SwiperSlide className="cards" key={dish.id}>
+                    <CardFood isAdmin={isAdmin} data={dish} quantity={dish.quantity} />
+                  </SwiperSlide>
+                ))}
+            </CarrosselFood>
+          </motion.div>
+        )}
 
-  {dishes.filter((dish) => dish.category === "bebida").length > 0 && (
-    <motion.div
-      custom={2}
-      initial="hidden"
-      animate="visible"
-      variants={carrosselVariants}
-    >
-      <CarrosselFood title="Bebidas">
-        {dishes
-          .filter((dish) => dish.category === "bebida")
-          .map((dish) => (
-            <SwiperSlide className="cards" key={dish.id}>
-              <CardFood
-                isAdmin={isAdmin}
-                data={dish}
-                quantity={dish.quantity}
-              />
-            </SwiperSlide>
-          ))}
-      </CarrosselFood>
-    </motion.div>
-  )}
-</div>
-      : <div className="NotFound">
-        <h1>Nenhum prato encontrado</h1>
-      </div>
-      }
+        {dishes.filter((dish) => dish.category === "sobremesa").length > 0 && (
+          <motion.div
+            custom={1}
+            initial="hidden"
+            animate="visible"
+            variants={carrosselVariants}
+          >
+            <CarrosselFood title="Sobremesas">
+              {dishes
+                .filter((dish) => dish.category === "sobremesa")
+                .map((dish) => (
+                  <SwiperSlide className="cards" key={dish.id}>
+                    <CardFood isAdmin={isAdmin} data={dish} quantity={dish.quantity} />
+                  </SwiperSlide>
+                ))}
+            </CarrosselFood>
+          </motion.div>
+        )}
+
+        {dishes.filter((dish) => dish.category === "bebida").length > 0 && (
+          <motion.div
+            custom={2}
+            initial="hidden"
+            animate="visible"
+            variants={carrosselVariants}
+          >
+            <CarrosselFood title="Bebidas">
+              {dishes
+                .filter((dish) => dish.category === "bebida")
+                .map((dish) => (
+                  <SwiperSlide className="cards" key={dish.id}>
+                    <CardFood isAdmin={isAdmin} data={dish} quantity={dish.quantity} />
+                  </SwiperSlide>
+                ))}
+            </CarrosselFood>
+          </motion.div>
+        )}
       </Main>
       <Footer />
     </Container>
