@@ -8,7 +8,7 @@
 </div>
 <br>
 
-Back-end: <br>
+Back-end: https://github.com/almeida0808/API-desafio-final/tree/main<br>
 Site funcionando: 
 
 # FOOD EXPLORER
@@ -38,10 +38,9 @@ O projeto será divido em duas partes: `Front-end` e `Back-end`
 
 ```bash
 # Faça o clone do repotório
-  git clone git@github.com:RenanFachin/RS_FoodExplorer.git
-
+  git clone https://github.com/almeida0808/food-explorer.git
 # Acessar a pasta do projeto pelo terminal
-  cd RS_FoodExplorer
+  cd food-explorer
 
 # Faça a instalação das depêndencias
   npm i
@@ -63,7 +62,7 @@ senha: senha,123
 
 ## ✔️ Autor
 
-- [Lucas Almeida](https://github.com/RenanFachin/)
+- [Lucas Almeida](https://github.com/almeida0808/)
 
 ## 📄 Referência
 
