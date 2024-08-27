@@ -16,11 +16,22 @@ export function SignUp() {
 
   const navigate = useNavigate();
 
+  function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(String(email).toLowerCase());
+  }
+
   function handleSignUp() {
     if (!name || !email || !password) {
       alert("Preencha todos os campos");
       return;
     }
+
+    if (!validateEmail(email)) {
+      alert("Por favor, insira um e-mail válido.");
+      return;
+    }
+
     api
       .post("/users", { name, email, password })
       .then(() => {
@@ -75,6 +86,7 @@ export function SignUp() {
           placeholder="Seu nome"
         />
         <Input
+          type="email"
           title="Email"
           onChange={(e) => setEmail(e.target.value)}
           placeholder="exemplo@email.com"

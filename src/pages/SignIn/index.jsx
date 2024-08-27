@@ -16,7 +16,16 @@ export function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(String(email).toLowerCase());
+  }
+
   function handleSignIn() {
+    if (!validateEmail(email)) {
+      alert("Por favor, insira um e-mail válido.");
+      return;
+    }
     signIn({ email, password });
   }
 
@@ -53,6 +62,7 @@ export function SignIn() {
         {isDesktop && <h1>Faça seu login</h1>}
 
         <Input
+          type="email"
           title="Email"
           onChange={(e) => setEmail(e.target.value)}
           placeholder="exemplo@email.com"
