@@ -14,7 +14,7 @@ export function CarrosselFood({
   children,
   like = false,
   DisheCategory,
-  isAdmin,
+
   ...rest
 }) {
   const isSmallMobile = useMediaQuery({ minWidth: 300, maxWidth: 374 });
@@ -22,7 +22,7 @@ export function CarrosselFood({
   const isTablet = useMediaQuery({ minWidth: 575, maxWidth: 1299 });
   const isDesktop = useMediaQuery({ minWidth: 1300, maxWidth: 1699 });
   const isLargeDesktop = useMediaQuery({ minWidth: 1700 });
-
+ 
   // Definir a animação com delays para cada slide
   const slideVariants = {
     hidden: { opacity: 0, scale: 0. },

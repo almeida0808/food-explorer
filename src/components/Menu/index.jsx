@@ -42,7 +42,7 @@ function handleInputChange(e){
 
 
   return (
-    <Container {...rest}>
+    <Container >
       <Header
       totalQuantity={totalQuantity}
         data-menu-is-open={menuIsOpen}

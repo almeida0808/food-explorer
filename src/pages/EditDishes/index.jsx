@@ -188,7 +188,7 @@ export function EditDishes({ ...rest }) {
 
   return (
     <Container {...rest}>
-      <Menu isAdmin={isAdmin} />
+      <Menu />
       <Main>
         <motion.form initial="hidden" animate="visible" variants={formVariants}>
           <Link to="/">

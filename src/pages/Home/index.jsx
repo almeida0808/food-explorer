@@ -26,19 +26,19 @@ export function Home({ ...rest }) {
   useEffect(() => {
     async function fetchDishes() {
       const response = await api.get(`/pratos?name=${search}`);
-      const fetchedDishes = response.data.pratos.map(dish => ({
+      const fetchedDishes = response.data.pratos.map((dish) => ({
         ...dish,
-        quantity: quantities[dish.id] || 0 // Define a quantidade inicial para cada prato com base no contexto
+        quantity: quantities[dish.id] || 0, // Define a quantidade inicial para cada prato com base no contexto
       }));
       setDishes(fetchedDishes);
     }
-    
+
     fetchDishes();
   }, [search, quantities]); // Inclua 'quantities' como dependência para garantir a atualização correta
 
   const carrosselVariants = {
     hidden: { opacity: 0, x: -100 },
-    visible: i => ({
+    visible: (i) => ({
       opacity: 1,
       x: 0,
       transition: {
@@ -53,7 +53,7 @@ export function Home({ ...rest }) {
       opacity: 1,
       y: 0,
       transition: {
-        delay: 0, 
+        delay: 0,
         duration: 0.5,
       },
     },
@@ -61,15 +61,15 @@ export function Home({ ...rest }) {
 
   return (
     <Container>
-      <Menu totalQuantity={getTotalQuantity()} onSearch={handleSearchChange} isAdmin={isAdmin} />
+      <Menu totalQuantity={getTotalQuantity()} onSearch={handleSearchChange} />
       <Main>
-
-        <motion.section 
-         custom={2}
-         initial="hidden"
-         animate="visible"
-         variants={bannerVariants}
-        className="banner">
+        <motion.section
+          custom={2}
+          initial="hidden"
+          animate="visible"
+          variants={bannerVariants}
+          className="banner"
+        >
           <img src={frutasBanner} alt="" />
           <div className="background-banner">
             <div>
@@ -91,7 +91,7 @@ export function Home({ ...rest }) {
                 .filter((dish) => dish.category === "refeição")
                 .map((dish) => (
                   <SwiperSlide className="cards" key={dish.id}>
-                    <CardFood isAdmin={isAdmin} data={dish} quantity={dish.quantity} />
+                    <CardFood data={dish} quantity={dish.quantity} />
                   </SwiperSlide>
                 ))}
             </CarrosselFood>
@@ -110,7 +110,7 @@ export function Home({ ...rest }) {
                 .filter((dish) => dish.category === "sobremesa")
                 .map((dish) => (
                   <SwiperSlide className="cards" key={dish.id}>
-                    <CardFood isAdmin={isAdmin} data={dish} quantity={dish.quantity} />
+                    <CardFood data={dish} quantity={dish.quantity} />
                   </SwiperSlide>
                 ))}
             </CarrosselFood>
@@ -129,7 +129,10 @@ export function Home({ ...rest }) {
                 .filter((dish) => dish.category === "bebida")
                 .map((dish) => (
                   <SwiperSlide className="cards" key={dish.id}>
-                    <CardFood isAdmin={isAdmin} data={dish} quantity={dish.quantity} />
+                    <CardFood
+                      data={dish}
+                      quantity={dish.quantity}
+                    />
                   </SwiperSlide>
                 ))}
             </CarrosselFood>

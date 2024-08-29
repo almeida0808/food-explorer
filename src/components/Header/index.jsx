@@ -66,7 +66,7 @@ export function Header({
     <button className="list" onClick={HandleToglleMenu}>
       <List />
     </button>
-    <Logo isAdmin={isAdmin} />
+    <Logo />
     {!isAdmin ? (
       <div className="pedidos">
         <Receipt />
@@ -86,7 +86,7 @@ export function Header({
 ) : (
   isDesktop && (
     <div className="headerDesktop">
-      <Logo className="logo" isAdmin={isAdmin} />
+      <Logo className="logo"  />
       <div className="pesquisar">
         <MagnifyingGlass />
         <input

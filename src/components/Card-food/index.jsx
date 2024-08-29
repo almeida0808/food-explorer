@@ -1,78 +1,78 @@
 import { Container } from "./styles";
 import { Heart, Minus, Plus, PencilSimple } from "@phosphor-icons/react";
 import { useMediaQuery } from "react-responsive";
-import { useState, useEffect } from "react";
-import {  useNavigate } from "react-router-dom";
+import { useState, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { api } from "../../services/api";
 import { useQuantity } from "../../hooks/QuantityContext";
+import { useAuth } from "../../hooks/auth";
 
-export function CardFood({
-  isAdmin = false,
-  data,
-  ...rest
-}) {
+export function CardFood({ data, ...rest }) {
   const isDesktop = useMediaQuery({ minWidth: 768 });
   const [like, setLike] = useState(false);
-  const handleLike = () => {
-    setLike((prevState) => !prevState);
-  };
+  const [dishQuantity, setDishQuantity] = useState(0);
+
+  const { user } = useAuth();
+  const isAdmin = user.role === "admin";
 
   const imageUrl = `${api.defaults.baseURL}/files/${data.imageUrl}`;
-  const shortName = data.name.length > 12 ? data.name.substring(0, 12) + '...' : data.name;
-  const shortDescription = data.description.length > 56 ? data.description.substring(0, 56) + '...' : data.description;
+  const shortName = data.name.length > 12 ? `${data.name.substring(0, 12)}...` : data.name;
+  const shortDescription = data.description.length > 56 ? `${data.description.substring(0, 56)}...` : data.description;
 
   const navigate = useNavigate();
   const { updateQuantity, quantities } = useQuantity();
-  const [dishQuantity, setDishQuantity] = useState(0);
 
   useEffect(() => {
-    const initialQuantity = quantities[data.id] || 0;
-    setDishQuantity(initialQuantity);
+    setDishQuantity(quantities[data.id] || 0);
   }, [quantities, data.id]);
 
-  function addQuantity() {
+  const handleLike = useCallback(() => {
+    setLike(prevState => !prevState);
+  }, []);
+
+  const addQuantity = useCallback(() => {
     setDishQuantity(prevQuantity => {
       const newQuantity = prevQuantity + 1;
       updateQuantity(data.id, newQuantity);
       return newQuantity;
     });
-  }
+  }, [data.id, updateQuantity]);
 
-  function removeQuantity() {
+  const removeQuantity = useCallback(() => {
     setDishQuantity(prevQuantity => {
       if (prevQuantity <= 0) return prevQuantity;
       const newQuantity = prevQuantity - 1;
       updateQuantity(data.id, newQuantity);
       return newQuantity;
     });
-  }
+  }, [data.id, updateQuantity]);
 
-  function EditDish() {
+  const editDish = useCallback(() => {
     navigate(`/edit/${data.id}`);
-  }
+  }, [data.id, navigate]);
 
-  function DetailsDish() {
+  const detailsDish = useCallback(() => {
     navigate(`/details/${data.id}`);
-  }
+  }, [data.id, navigate]);
 
   return (
-    <Container isAdmin={isAdmin} {...rest}>
+    <Container >
       {isAdmin ? (
-        <button>
-          <PencilSimple onClick={EditDish} className="edit" />
+        <button onClick={editDish}>
+          <PencilSimple className="edit" />
         </button>
       ) : !like ? (
         <Heart className="like" onClick={handleLike} />
       ) : (
         <Heart className="like" onClick={handleLike} weight="fill" />
       )}
-      <img src={imageUrl} onClick={DetailsDish} alt={data.name} />
+      <img src={imageUrl} onClick={detailsDish} alt={data.name} />
 
-      <p className="title" onClick={DetailsDish}>
+      <p className="title" onClick={detailsDish}>
         {!isDesktop ? `${shortName} >` : `${data.name} >`}
       </p>
-      {isDesktop && <p onClick={DetailsDish} className="description">{shortDescription}</p>}
-      <p onClick={DetailsDish} className="value">{`R$${data.value.replace('.', ',')}`}</p>
+      {isDesktop && <p onClick={detailsDish} className="description">{shortDescription}</p>}
+      <p onClick={detailsDish} className="value">{`R$${data.value.replace('.', ',')}`}</p>
 
       {!isAdmin && (
         <div className="AddFood">

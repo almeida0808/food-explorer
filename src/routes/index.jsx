@@ -9,10 +9,13 @@ export function Routes() {
   const { user } = useAuth();
 
 function AcessRoute(){
+  console.log(user.role)
   switch(user.role){
     case USER_ROLE.ADMIN :
       return <AdminRoutes/>
       case USER_ROLE.CLIENT:
+        return <ClientRoutes/>
+        default: 
         return <ClientRoutes/>
   }
 }

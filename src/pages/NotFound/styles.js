@@ -21,7 +21,21 @@ export const Main = styled.main`
   grid-area: main;
   display: flex;
   flex-direction: column;
+  color: ${({ theme }) => theme.COLORS.BLUE_200};
 
-  > h1 {
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+
+  h1 {
+    font-size: 80px;
+    line-height: 80%;
+  }
+  h2 {
+    font-size: 30px;
+    font-weight: 400;
+  }
+
+  svg {
+    font-size: 60px;
   }
 `;

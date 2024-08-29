@@ -78,7 +78,7 @@ export function FoodDetails({ ...rest }) {
 
   return (
     <Container>
-      <Menu isAdmin={isAdmin} totalQuantity={getTotalQuantity()} />
+      <Menu totalQuantity={getTotalQuantity()} />
       <Main>
         <div className="voltar">
           <Link to="/">
