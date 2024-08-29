@@ -9,7 +9,7 @@
 <br>
 
 Back-end: https://github.com/almeida0808/API-desafio-final/tree/main<br>
-Site funcionando: 
+Site funcionando: https://66d0d0e59b5aa9726716e414--almeida-foodexplorer.netlify.app/
 
 # FOOD EXPLORER
 Aplicação de um cardápio digital para um restaurante fictício, conhecido como FoodExplorer.<br>
